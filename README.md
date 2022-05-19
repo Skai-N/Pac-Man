@@ -4,3 +4,6 @@
 
 <p> Team name: Team JV Basketball </p>
 <p> Team members: Skai Nzeuton, Aahan Mehta </p>
+Basic Pac-Man with more features such as power ups and multiple maps. 
+If we have time, we could implement the actual behaviors of the ghosts 
+from the actual Pac-Man.
