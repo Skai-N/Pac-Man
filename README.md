@@ -4,6 +4,4 @@
 
 <p> Team name: Team JV Basketball </p>
 <p> Team members: Skai Nzeuton, Aahan Mehta </p>
-Basic Pac-Man with more features such as power ups and multiple maps. 
-If we have time, we could implement the actual behaviors of the ghosts 
-from the actual Pac-Man.
+<p> Basic Pac-Man with features such as power ups and multiple map options. If we have time, we plan to implement the actual behaviors of the ghosts from the actual Pac-Man. Having accurate level advancement and scoring would also be another long term goal. Implementing the actual sound effects would also be a nice touch. </p>
