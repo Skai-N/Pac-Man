@@ -3,6 +3,11 @@ public class Entity {
  int y;
  int speed;
  
+ Entity(int startX, int startY) {
+   x = startX;
+   y = startY;
+ }
+ 
  int getX() {
    return x;
  }
