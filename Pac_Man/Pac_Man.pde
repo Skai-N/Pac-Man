@@ -14,7 +14,9 @@ int[][] gameBoard;
 void setup() {
   gameBoard = readFile("level0");
   gameBoard.loadGame();
-  size(gameBoard.length*5,gameBoard[0].length*5);
+  int len = gameBoard.length*5;
+  int wid = gameBoard[0].length*5
+  size(100,80);
   
 }
 void draw() {
