@@ -12,7 +12,10 @@ ArrayList<Ghost> ghosts;
 
 int[][] gameBoard;
 void setup() {
-  size(100, 100);
+  gameBoard = readFile("level0");
+  gameBoard.loadGame();
+  size(gameBoard.length*5,gameBoard[0].length*5);
+  
 }
 void draw() {
   
@@ -24,8 +27,11 @@ void done() {
   
 }
 
-void loadGame(int[][] board){
-  
+void loadGame(){
+  for(int i = 0; i < board.length; i++){
+   for(int j = 0; j < board[i].length; j++){
+     if(board[i][j] == SPACE)board[i][j] = FRUIT;
+  }
 }
 
 int[][] readFile(String filename) {
