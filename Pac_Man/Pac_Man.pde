@@ -7,16 +7,15 @@ final int FRUIT = 2;
 final int GHOST = 3;
 final int PLAYER = 4;
 
-ArrayList<Fruit> dots;
-ArrayList<Ghost> ghosts;
+//ArrayList<Fruit> dots;
+//ArrayList<Ghost> ghosts;
 
+float SQUARESIZE = 3;
 int[][] gameBoard;
 void setup() {
   gameBoard = readFile("level0");
-  gameBoard.loadGame();
-  int len = gameBoard.length*5;
-  int wid = gameBoard[0].length*5
-  size(100,80);
+  loadGame();
+  size(300,240);
   
 }
 void draw() {
@@ -29,10 +28,30 @@ void done() {
   
 }
 
+void StringToSquares(int[][] map){
+  for(int i = 0; i < 100; i++){
+    for(int j = 0; j < 80; j++){
+      if(map[i][j] == WALL){
+        fill(0,0,250);
+        rect(i*SQUARESIZE,j*SQUARESIZE,SQUARESIZE, SQUARESIZE);
+      }
+      if(map[i][j] == FRUIT){
+        fill(255,255,255);
+        circle(i,j,1);
+      }
+      
+    }
+  }
+  
+}
 void loadGame(){
-  for(int i = 0; i < board.length; i++){
-   for(int j = 0; j < board[i].length; j++){
-     if(board[i][j] == SPACE)board[i][j] = FRUIT;
+  for(int i = 0; i < gameBoard.length; i++){
+   for(int j = 0; j < gameBoard[i].length; j++){
+     if(gameBoard[i][j] == SPACE){
+     gameBoard[i][j] = FRUIT;
+     //dots.add(new Fruit(i, j, 0));
+     }
+   }
   }
 }
 
@@ -61,6 +80,6 @@ int[][] readFile(String filename) {
   }
   catch(FileNotFoundException ex) {
     print("filenotfound");
-    return new int[1][1];
+    return new int[1][1]; // change to make rndm map
   }
 }
