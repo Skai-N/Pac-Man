@@ -9,3 +9,5 @@
 Aahan 5/23/22: Finished the readfile function that makes a map based on a file.
 
 Skai 5/23/22: Created Entity class and added instance variables and get methods.
+
+Skai 5/24/22: Finished Entity class methods with Eatable interface implementation, started and finished Fruit class, started and finished Score class.
