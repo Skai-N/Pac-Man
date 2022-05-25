@@ -11,4 +11,11 @@ public class Fruit extends Entity {
    type = startType;
    pointVal = type;
  }
+ 
+ void move() { //does nothing
+ }
+ 
+ int getType() {
+  return type; 
+ }
 }
