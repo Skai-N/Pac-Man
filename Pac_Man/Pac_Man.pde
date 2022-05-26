@@ -14,7 +14,7 @@ final int PLAYER = 4;
 int xDir = 0;
 int yDir = 0;
 
-float SQUARESIZE = 3;
+float SQUARESIZE = 5;
 int[][] gameBoard;
 void setup() {
   //dots = new ArrayList<Fruit>();
@@ -22,7 +22,7 @@ void setup() {
   
   //PacMan = new Player(width/2, height/2);
   
-  size(300,240);
+  size(500,400);
   gameBoard = readFile("level0");
   loadGame();
   StringToSquares(gameBoard);
@@ -41,7 +41,7 @@ void run() {
     ghosts.get(i).move(); 
   }
 }
-void done() {
+boolean done() {
   //return dots.size() == 0;
   return false;
 }
