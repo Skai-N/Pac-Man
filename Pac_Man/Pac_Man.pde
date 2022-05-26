@@ -28,6 +28,8 @@ void done() {
   
 }
 
+void
+
 void StringToSquares(int[][] map){
   for(int i = 0; i < 100; i++){
     for(int j = 0; j < 80; j++){
@@ -37,13 +39,13 @@ void StringToSquares(int[][] map){
       }
       if(map[i][j] == FRUIT){
         fill(255,255,255);
-        circle(i,j,1);
+        circle(i*SQUARESIZE,j*SQUARESIZE,1);
       }
       
     }
   }
-  
 }
+  
 void loadGame(){
   for(int i = 0; i < gameBoard.length; i++){
    for(int j = 0; j < gameBoard[i].length; j++){
@@ -56,30 +58,16 @@ void loadGame(){
 }
 
 int[][] readFile(String filename) {
-  try {
-    File text = new File(filename);
-    ArrayList<int[]> inpet = new ArrayList<int[]>();
-    String line = "";
-    Scanner input = new Scanner(text);
-
-    while (input.hasNextLine()) {
-      line = input.nextLine();
-      int[] temp = new int[line.length()];
-      for (int i = 0; i < line.length(); i++) {
-        if (line.charAt(i) == '#')temp[i] = WALL;
-        if (line.charAt(i) == ' ')temp[i] = SPACE;
-      }
-      inpet.add(temp);
+  String[] lines = loadStrings(filename);
+  //println(lines.length + "x" + lines[0].length() );
+  int len = lines[0].length();
+  int[][] temp = new int[lines.length][len];
+  for(int i = 0; i < lines.length; i++){
+    for(int j = 0; j < len; j++){
+      if(lines[i].charAt(j) == '#')temp[i][j] = WALL;
+      if(lines[i].charAt(j) == '*')temp[i][j] = SPACE;
     }
-
-    int[][] map = new int[inpet.size()][inpet.get(0).length];
-    for (int i = 0; i < inpet.size(); i++) {
-      map[i] = inpet.get(i);
-    }
-    return map;
+    
   }
-  catch(FileNotFoundException ex) {
-    print("filenotfound");
-    return new int[1][1]; // change to make rndm map
-  }
+  return temp;
 }
