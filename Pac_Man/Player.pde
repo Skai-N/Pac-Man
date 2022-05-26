@@ -4,6 +4,8 @@ public class Player extends Entity {
   Score points;
 
   Player(int x, int y) {
+    super(x,y);
+    speed = 3;
     lives = 3;
     invincible = false;
     points = new Score();

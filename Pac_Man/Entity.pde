@@ -8,6 +8,7 @@ public class Entity implements Eatable {
     x = startX;
     y = startY;
     isEatable = false;
+    speed = 0;
   }
   
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
