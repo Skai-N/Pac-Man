@@ -19,6 +19,7 @@ int[][] gameBoard;
 void setup() {
   //dots = new ArrayList<Fruit>();
   //ghosts = new ArrayList<Ghost>();
+  
   //PacMan = new Player(width/2, height/2);
   
   size(300,240);
@@ -35,6 +36,10 @@ void draw() {
 void run() {
   if(done())return;
   PacMan.move(xDir,yDir);
+  
+  for(int i = 0; i < ghosts.size(); i++){
+    ghosts.get(i).move(); 
+  }
 }
 void done() {
   //return dots.size() == 0;

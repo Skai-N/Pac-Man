@@ -13,3 +13,5 @@ Skai 5/23/22: Created Entity class and added instance variables and get methods.
 Aahan 5/24/22: Continued workign on map, made changes to PACMan board.
 
 Skai 5/24/22: Finished Entity class methods with Eatable interface implementation, started and finished Fruit class, started and finished Score class.
+
+Aahan 5/25/22: FINISHED THE READFILE AND LOADING METHODS, updated the PacMan methods keyPressed, done, run
