@@ -4,6 +4,7 @@ public class Ghost extends Entity {
   
   Ghost(int startX, int startY, color startClr) {
     super(startX, startY);
+    speed = 2;
     clr = startClr;
   }
   
