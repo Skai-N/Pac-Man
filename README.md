@@ -15,3 +15,5 @@ Aahan 5/24/22: Continued workign on map, made changes to PACMan board.
 Skai 5/24/22: Finished Entity class methods with Eatable interface implementation, started and finished Fruit class, started and finished Score class.
 
 Aahan 5/25/22: FINISHED THE READFILE AND LOADING METHODS, updated the PacMan methods keyPressed, done, run
+
+Skai 5/25/22: Finished Player class and added more set methods + die() and respawn().
