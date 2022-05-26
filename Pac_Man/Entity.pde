@@ -23,9 +23,9 @@ public class Entity implements Eatable {
 
       location[0] = row;
       location[1] = col;
-
-      return location;
     }
+    
+    return location;
   }
 
   int getX() {
