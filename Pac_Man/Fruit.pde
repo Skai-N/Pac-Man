@@ -9,10 +9,15 @@ public class Fruit extends Entity {
    super(startX, startY);
    isEatable = true;
    type = startType;
-   pointVal = type;
- }
- 
- void move() { //does nothing
+   if(type == dot) {
+     pointVal = 10;
+   }
+   else if(type == bigDot) {
+     pointVal = 50;
+   }
+   else {
+     pointVal = type;
+   }
  }
  
  int getType() {
