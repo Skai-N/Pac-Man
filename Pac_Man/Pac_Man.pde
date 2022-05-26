@@ -9,26 +9,44 @@ final int PLAYER = 4;
 
 //ArrayList<Fruit> dots;
 //ArrayList<Ghost> ghosts;
+//Player PacMan;
+
+int xDir = 0;
+int yDir = 0;
 
 float SQUARESIZE = 3;
 int[][] gameBoard;
 void setup() {
+  //dots = new ArrayList<Fruit>();
+  //ghosts = new ArrayList<Ghost>();
+  //PacMan = new Player(width/2, height/2);
+  
+  size(300,240);
   gameBoard = readFile("level0");
   loadGame();
-  size(300,240);
+  StringToSquares(gameBoard);
   
 }
 void draw() {
-  
+  run();
+  StringToSquares(gameBoard);
+
 }
 void run() {
-  
+  if(done())return;
+  PacMan.move(xDir,yDir);
 }
 void done() {
-  
+  //return dots.size() == 0;
+  return false;
 }
 
-void
+void keyPressed(){
+ if(keyCode == UP){yDir = -1;xDir = 0;}
+ if(keyCode == DOWN){yDir = 1;xDir = 0;}
+ if(keyCode == RIGHT){yDir = 0;xDir = 1;}
+ if(keyCode == LEFT){yDir = -1;xDir = -1;}
+}
 
 void StringToSquares(int[][] map){
   for(int i = 0; i < 100; i++){
