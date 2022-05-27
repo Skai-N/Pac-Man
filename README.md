@@ -19,3 +19,5 @@ Aahan 5/25/22: FINISHED THE READFILE AND LOADING METHODS, updated the PacMan met
 Skai 5/25/22: Finished Player class and added more set methods + die() and respawn().
 
 Aahan 5/26/22: Cleaned up the Pac-Man class, fixed problems with gameBoard.
+
+Skai 5/26/22: Added unique speeds to each Entity subclass and started working on the Ghost class and Ghost move();
