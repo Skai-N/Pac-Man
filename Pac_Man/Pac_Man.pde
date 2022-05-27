@@ -54,8 +54,8 @@ void keyPressed(){
 }
 
 void StringToSquares(int[][] map){
-  for(int i = 0; i < 100; i++){
-    for(int j = 0; j < 80; j++){
+  for(int i = 0; i < map.length; i++){
+    for(int j = 0; j < map[0].length; j++){
       if(map[i][j] == WALL){
         fill(0,0,250);
         rect(i*SQUARESIZE,j*SQUARESIZE,SQUARESIZE, SQUARESIZE);
@@ -85,15 +85,20 @@ void loadGame(){
 
 int[][] readFile(String filename) {
   String[] lines = loadStrings(filename);
-  //println(lines.length + "x" + lines[0].length() );
+  println(lines.length + "x" + lines[0].length() );
   int len = lines[0].length();
   int[][] temp = new int[lines.length][len];
   for(int i = 0; i < lines.length; i++){
     for(int j = 0; j < len; j++){
+      //println(j);
+      //println(i);
+      //println(len);
+      //println(lines.length);
       if(lines[i].charAt(j) == '#')temp[i][j] = WALL;
       if(lines[i].charAt(j) == '*')temp[i][j] = SPACE;
     }
     
   }
+  
   return temp;
 }
