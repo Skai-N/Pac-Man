@@ -19,7 +19,6 @@ int[][] gameBoard;
 void setup() {
   //dots = new ArrayList<Fruit>();
   //ghosts = new ArrayList<Ghost>();
-  
   //PacMan = new Player(width/2, height/2);
   
   size(500,400);
@@ -36,10 +35,10 @@ void draw() {
 void run() {
   if(done())return;
   PacMan.move(xDir,yDir);
-  
-  for(int i = 0; i < ghosts.size(); i++){
-    ghosts.get(i).move(); 
+  for(Ghost g : ghosts){
+    g.move();
   }
+  
 }
 boolean done() {
   //return dots.size() == 0;
@@ -62,9 +61,12 @@ void StringToSquares(int[][] map){
       }
       if(map[i][j] == FRUIT){
         fill(255,255,255);
-        circle(i*SQUARESIZE,j*SQUARESIZE,1);
+        circle(i*SQUARESIZE,j*SQUARESIZE,2);
       }
-      
+      if(map[i][j] == PLAYER){
+       fill(255,233,0);
+       circle(i*SQUARESIZE,j*SQUARESIZE,3);
+      }
     }
   }
 }
