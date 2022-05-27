@@ -17,3 +17,5 @@ Skai 5/24/22: Finished Entity class methods with Eatable interface implementatio
 Aahan 5/25/22: FINISHED THE READFILE AND LOADING METHODS, updated the PacMan methods keyPressed, done, run
 
 Skai 5/25/22: Finished Player class and added more set methods + die() and respawn().
+
+Aahan 5/26/22: Cleaned up the Pac-Man class, fixed problems with gameBoard.
