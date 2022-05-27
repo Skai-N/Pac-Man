@@ -1,4 +1,4 @@
 public interface Eatable {
- boolean isEatable;
+ boolean isEatable = false;
  int[] eat(Eatable other);
 }
