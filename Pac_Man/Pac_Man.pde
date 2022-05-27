@@ -7,9 +7,9 @@ final int FRUIT = 2;
 final int GHOST = 3;
 final int PLAYER = 4;
 
-//ArrayList<Fruit> dots;
-//ArrayList<Ghost> ghosts;
-//Player PacMan;
+ArrayList<Fruit> dots;
+ArrayList<Ghost> ghosts;
+Player PacMan;
 
 int xDir = 0;
 int yDir = 0;
@@ -17,13 +17,13 @@ int yDir = 0;
 float SQUARESIZE = 5;
 int[][] gameBoard;
 void setup() {
-  //dots = new ArrayList<Fruit>();
-  //ghosts = new ArrayList<Ghost>();
+  dots = new ArrayList<Fruit>();
+  ghosts = new ArrayList<Ghost>();
   
-  //PacMan = new Player(width/2, height/2);
+  PacMan = new Player(width/2, height/2);
   
   size(500,400);
-  gameBoard = readFile("level0");
+  gameBoard = readFile("level0.txt");
   loadGame();
   StringToSquares(gameBoard);
   
