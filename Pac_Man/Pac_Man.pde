@@ -77,7 +77,7 @@ void StringToSquares(int[][] map) {
       }
       if (map[i][j] == FRUIT) {
         fill(255, 255, 255);
-        circle(i*SQUARESIZE + SQUARESIZE/2, j*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2);
+        circle(i*SQUARESIZE + SQUARESIZE/2, j*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
       }
       //if(map[i][j] == PLAYER){
       // fill(255,233,0);
