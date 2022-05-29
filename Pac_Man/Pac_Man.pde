@@ -7,6 +7,9 @@ final int FRUIT = 2;
 final int GHOST = 3;
 final int PLAYER = 4;
 
+int ROWS;
+int COLS;
+
 ArrayList<Fruit> dots;
 ArrayList<Ghost> ghosts;
 Player PacMan;
@@ -45,8 +48,8 @@ void run() {
   }
 }
 boolean done() {
-  //return dots.size() == 0;
-  return false;
+  return dots.size() == 0;
+  //return false;
 }
 
 void keyPressed() {
@@ -71,17 +74,19 @@ void keyPressed() {
 void StringToSquares(int[][] map) {
   for (int i = 0; i < map.length; i++) {
     for (int j = 0; j < map[0].length; j++) {
-      if (map[i][j] == WALL) {
-        fill(0, 0, 250);
-        rect(i*SQUARESIZE, j*SQUARESIZE, SQUARESIZE, SQUARESIZE);
-      }
-      if (map[i][j] == FRUIT) {
-        fill(255, 255, 255);
-        circle(i*SQUARESIZE + SQUARESIZE/2, j*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
-      }
-      //if(map[i][j] == PLAYER){
-      // fill(255,233,0);
-      // circle(i*SQUARESIZE,j*SQUARESIZE,3);
+      //if (!(i == ROWS/2 - 1 || i == ROWS/2) && (j == COLS/2 - 1 || j == COLS/2)) {
+        if (map[i][j] == WALL) {
+          fill(0, 0, 250);
+          rect(i*SQUARESIZE, j*SQUARESIZE, SQUARESIZE, SQUARESIZE);
+        }
+        if (map[i][j] == FRUIT) {
+          fill(255, 255, 255);
+          circle(i*SQUARESIZE + SQUARESIZE/2, j*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
+        }
+        if (map[i][j] == PLAYER) {
+          fill(250, 200, 0);
+          arc(i*SQUARESIZE + SQUARESIZE/2, j*SQUARESIZE + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6, 11 * PI/6);
+        }
       //}
     }
   }
@@ -92,7 +97,7 @@ void loadGame() {
     for (int j = 0; j < gameBoard[i].length; j++) {
       if (gameBoard[i][j] == SPACE) {
         gameBoard[i][j] = FRUIT;
-        //dots.add(new Fruit(i, j, 0));
+        dots.add(new Fruit(i, j, 0));
       }
     }
   }
@@ -111,6 +116,7 @@ int[][] readFile(String filename) {
       //println(lines.length);
       if (lines[i].charAt(j) == '#')temp[i][j] = WALL;
       if (lines[i].charAt(j) == '*')temp[i][j] = SPACE;
+      if (lines[i].charAt(j) == 'S')temp[i][j] = PLAYER;
     }
   }
 

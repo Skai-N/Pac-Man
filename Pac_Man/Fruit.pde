@@ -18,7 +18,7 @@ public class Fruit extends Entity {
    else {
      pointVal = type;
    }
- }
+ }   
  
  int getType() {
   return type; 
