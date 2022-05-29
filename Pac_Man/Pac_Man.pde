@@ -14,7 +14,7 @@ Player PacMan;
 int xDir = 0;
 int yDir = 0;
 
-float SQUARESIZE = 5;
+float SQUARESIZE;
 int[][] gameBoard;
 void setup() {
   dots = new ArrayList<Fruit>();
@@ -22,8 +22,11 @@ void setup() {
   
   PacMan = new Player(width/2, height/2);
   
-  size(500,400);
-  gameBoard = readFile("level0.txt");
+  size(720,720);
+  int ROWS = 30;
+  int COLS = 30;
+  SQUARESIZE = height/ROWS;
+  gameBoard = readFile("level1.txt");
   loadGame();
   StringToSquares(gameBoard);
   
@@ -62,7 +65,7 @@ void StringToSquares(int[][] map){
       }
       if(map[i][j] == FRUIT){
         fill(255,255,255);
-        circle(i*SQUARESIZE,j*SQUARESIZE,2);
+        circle(i*SQUARESIZE + SQUARESIZE/2,j*SQUARESIZE + SQUARESIZE/2,SQUARESIZE/2);
       }
       if(map[i][j] == PLAYER){
        fill(255,233,0);
