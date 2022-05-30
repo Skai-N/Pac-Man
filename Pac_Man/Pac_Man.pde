@@ -94,7 +94,7 @@ void StringToSquares(int[][] map) {
         circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
       }
       if (map[i][j] == PLAYER) {
-        PacMan.display();
+        PacMan.display(xDir, yDir);
       }
     }
   }

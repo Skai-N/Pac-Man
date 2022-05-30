@@ -12,16 +12,11 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (gameBoard[row + dy][col + dx] == WALL) {
-      move(0, 0);
-    } else {
-
+    if (! (gameBoard[row + dy][col + dx] == WALL)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
       gameBoard[row][col] = SPACE;
-
-
 
       row += dy;
       col += dx;
@@ -33,13 +28,31 @@ public class Player extends Entity {
 
       gameBoard[row][col] = PLAYER;
 
-      display();
+      display(dx, dy);
     }
   }
 
   void display() {
     fill(250, 200, 0);
-    arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6, 11 * PI/6);
+    arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
+  }
+
+  void display(int dx, int dy) {
+    if (dx == 1 && dy == 0) {
+      fill(250, 200, 0);
+      arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6, 11 * PI/6);
+    } else if (dx == 0 && dy == 1) {
+      fill(250, 200, 0);
+      arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + PI/2, 11 * PI/6 + PI/2);
+    } else if (dx == -1 && dy == 0) {
+      fill(250, 200, 0);
+      arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + PI, 11 * PI/6 + PI);
+    } else if (dx == 0 && dy == -1) {
+      fill(250, 200, 0);
+      arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + (3 * PI/2), 11 * PI/6 + (3 * PI/2));
+    } else {
+      display();
+    }
   }
 
   void die() {
