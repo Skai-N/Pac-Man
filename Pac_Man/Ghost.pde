@@ -22,7 +22,7 @@ public class Ghost extends Entity {
       col += dx;
 
       gameBoard[row][col] = GHOST;
-      if (temp == PLAYER) {
+      if (temp == PLAYER && PacMan.getState() == false) {
         PacMan.die();
       } else {
         gameBoard[row - dy][col - dx] = temp;

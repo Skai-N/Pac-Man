@@ -22,6 +22,11 @@ Aahan 5/26/22: Cleaned up the Pac-Man class, fixed problems with gameBoard.
 
 Skai 5/26/22: Added unique speeds to each Entity subclass and started working on the Ghost class and Ghost move().
 
+Aahan 5/27/22: Started putting together the PacMan class with the entities.
+
 Skai 5/27/22: Completed Ghost class and Ghost move(). Modified the main class to be able to run for testing purposes.
 
 Skai 5/29/22: Cleaned up the overall graphics and made PacMan and the fruits display properly.
+
+Aahan 5/30/22: Added updating score and working on invincible modes depending on framecount.
+

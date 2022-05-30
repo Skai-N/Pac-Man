@@ -92,4 +92,11 @@ public class Player extends Entity {
   int getCol() {
     return getX() / (int) SQUARESIZE;
   }
+  
+  void setInvincible(){
+    invincible = !invincible;
+  }
+  boolean getState(){
+    return invincible;
+  }
 }
