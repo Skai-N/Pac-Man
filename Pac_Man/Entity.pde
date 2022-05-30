@@ -44,6 +44,14 @@ public class Entity implements Eatable {
     return y;
   }
   
+  int getRow() {
+    return row;
+  }
+  
+  int getCol() {
+    return col;
+  }
+  
   void setX(int newX) {
     x = newX;
   }
