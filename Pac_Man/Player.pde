@@ -12,17 +12,22 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    setX(x + (speed * dx));
-    setY(y + (speed * dy));
+    if (gameBoard[row + dy][col + dx] == WALL) {
+      move(0, 0);
+    } else {
 
-    gameBoard[row][col] = SPACE;
+      setX(x + (speed * dx));
+      setY(y + (speed * dy));
 
-    row += dy;
-    col += dx;
-    
-    gameBoard[row][col] = PLAYER;
-    
-    display();
+      gameBoard[row][col] = SPACE;
+
+      row += dy;
+      col += dx;
+
+      gameBoard[row][col] = PLAYER;
+
+      display();
+    }
   }
 
   void display() {

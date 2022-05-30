@@ -43,11 +43,8 @@ void draw() {
   noStroke();
   run();
   StringToSquares(gameBoard);
-  println(PacMan.getX());
-  println(PacMan.getY());
   //println(ghosts.size());
   //println(dots.size());
-  PacMan.display();
 }
 void run() {
   //for (int i = 0; i < gameBoard.length; i++) {
