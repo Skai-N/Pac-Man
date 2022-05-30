@@ -7,6 +7,8 @@ final int FRUIT = 2;
 final int GHOST = 3;
 final int PLAYER = 4;
 
+int[] playerSpawn = new int[2];
+
 int ROWS;
 int COLS;
 
@@ -28,10 +30,11 @@ void setup() {
 
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
-
-  PacMan = new Player(width/2, height/2);
-
+  
   gameBoard = readFile("level1.txt");
+  
+  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
+  
   loadGame();
   StringToSquares(gameBoard);
   PacMan.display();
@@ -118,9 +121,17 @@ int[][] readFile(String filename) {
   int[][] temp = new int[lines.length][len];
   for (int i = 0; i < lines.length; i++) {
     for (int j = 0; j < len; j++) {
-      if (lines[i].charAt(j) == '#')temp[i][j] = WALL;
-      if (lines[i].charAt(j) == '*')temp[i][j] = SPACE;
-      if (lines[i].charAt(j) == 'S')temp[i][j] = PLAYER;
+      if (lines[i].charAt(j) == '#') {
+        temp[i][j] = WALL;
+      }
+      else if (lines[i].charAt(j) == '*') {
+        temp[i][j] = SPACE;
+      }
+      else if (lines[i].charAt(j) == 'S') {
+        temp[i][j] = PLAYER;
+        playerSpawn[0] = i;
+        playerSpawn[1] = j;
+      }
     }
   }
 

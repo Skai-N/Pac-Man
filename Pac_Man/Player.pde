@@ -23,7 +23,6 @@ public class Player extends Entity {
 
       if (gameBoard[row][col] == FRUIT) {
         dots.remove(dots.size() - 1);
-        println(dots.size());
       }
 
       gameBoard[row][col] = PLAYER;
@@ -61,8 +60,8 @@ public class Player extends Entity {
 
   void respawn() {
     die();
-    setX(width/2);
-    setY(height/2);
+    setX(playerSpawn[1] * (int) SQUARESIZE);
+    setY(playerSpawn[0] * (int) SQUARESIZE);
   }
 
   void setLives(int numLives) {
