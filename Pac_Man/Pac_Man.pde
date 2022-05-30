@@ -33,16 +33,39 @@ void setup() {
   gameBoard = readFile("level1.txt");
   loadGame();
   StringToSquares(gameBoard);
+  PacMan.display();
 
   noStroke();
 }
 void draw() {
+  background(0);
+  noStroke();
   run();
   StringToSquares(gameBoard);
+  println(PacMan.getX());
+  println(PacMan.getY());
+  //println(ghosts.size());
+  //println(dots.size());
+  PacMan.display();
 }
 void run() {
+  //for (int i = 0; i < gameBoard.length; i++) {
+  //  for (int j = 0; j < gameBoard[i].length; j++) {
+  //    print(gameBoard[i][j] + " ");
+  //  }
+  //  println("");
+  //}
   if (done())return;
+  //println(PacMan.getRow());
+  //println(PacMan.getCol());
+
   PacMan.move(xDir, yDir);
+  gameBoard[PacMan.getRow() + yDir][PacMan.getCol() + xDir] = PLAYER;
+  gameBoard[PacMan.getRow()][PacMan.getCol()] = SPACE;
+
+  //println(PacMan.getRow() + yDir);
+  //println(PacMan.getCol() + xDir);
+
   for (Ghost g : ghosts) {
     g.move();
   }
@@ -53,20 +76,20 @@ boolean done() {
 }
 
 void keyPressed() {
-  if (keyCode == UP) {
+  if (keyCode == UP || keyCode == 'w') {
     yDir = -1;
     xDir = 0;
   }
-  if (keyCode == DOWN) {
+  if (keyCode == DOWN || keyCode == 's') {
     yDir = 1;
     xDir = 0;
   }
-  if (keyCode == RIGHT) {
+  if (keyCode == RIGHT || keyCode == 'd') {
     yDir = 0;
     xDir = 1;
   }
-  if (keyCode == LEFT) {
-    yDir = -1;
+  if (keyCode == LEFT || keyCode == 'a') {
+    yDir = 0;
     xDir = -1;
   }
 }
@@ -74,20 +97,17 @@ void keyPressed() {
 void StringToSquares(int[][] map) {
   for (int i = 0; i < map.length; i++) {
     for (int j = 0; j < map[0].length; j++) {
-      //if (!(i == ROWS/2 - 1 || i == ROWS/2) && (j == COLS/2 - 1 || j == COLS/2)) {
-        if (map[i][j] == WALL) {
-          fill(0, 0, 250);
-          rect(i*SQUARESIZE, j*SQUARESIZE, SQUARESIZE, SQUARESIZE);
-        }
-        if (map[i][j] == FRUIT) {
-          fill(255, 255, 255);
-          circle(i*SQUARESIZE + SQUARESIZE/2, j*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
-        }
-        if (map[i][j] == PLAYER) {
-          fill(250, 200, 0);
-          arc(i*SQUARESIZE + SQUARESIZE/2, j*SQUARESIZE + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6, 11 * PI/6);
-        }
-      //}
+      if (map[i][j] == WALL) {
+        fill(0, 0, 250);
+        rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE, SQUARESIZE);
+      }
+      if (map[i][j] == FRUIT) {
+        fill(255, 255, 255);
+        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
+      }
+      if (map[i][j] == PLAYER) {
+        PacMan.display();
+      }
     }
   }
 }
@@ -110,10 +130,6 @@ int[][] readFile(String filename) {
   int[][] temp = new int[lines.length][len];
   for (int i = 0; i < lines.length; i++) {
     for (int j = 0; j < len; j++) {
-      //println(j);
-      //println(i);
-      //println(len);
-      //println(lines.length);
       if (lines[i].charAt(j) == '#')temp[i][j] = WALL;
       if (lines[i].charAt(j) == '*')temp[i][j] = SPACE;
       if (lines[i].charAt(j) == 'S')temp[i][j] = PLAYER;
