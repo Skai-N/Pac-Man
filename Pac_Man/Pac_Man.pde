@@ -33,7 +33,7 @@ void setup() {
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   
-  gameBoard = readFile("level2.txt");
+  gameBoard = readFile("level1.txt");
   
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
   ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0,255,255));

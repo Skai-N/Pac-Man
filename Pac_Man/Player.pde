@@ -59,12 +59,17 @@ public class Player extends Entity {
 
   void die() {
     setLives(lives - 1);
+    if(getLives() > 0) {
+      respawn();
+    }
   }
 
   void respawn() {
-    die();
     setX(playerSpawn[1] * (int) SQUARESIZE);
     setY(playerSpawn[0] * (int) SQUARESIZE);
+    
+    setRow(playerSpawn[0]);
+    setCol(playerSpawn[1]);
   }
 
   void setLives(int numLives) {
