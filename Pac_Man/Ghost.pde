@@ -50,4 +50,8 @@ public class Ghost extends Entity {
     fill(clr);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
+  
+  int getVal(){
+    return pointVal;
+  }
 }

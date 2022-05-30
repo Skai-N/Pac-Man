@@ -22,9 +22,10 @@ public class Player extends Entity {
       col += dx;
 
       if (gameBoard[row][col] == FRUIT) {
-        dots.remove(dots.size() - 1);
+        points.addScore(dots.remove(dots.size() - 1).getVal());
+        
       }
-      if (gameBoard[row][col] == GHOST) {
+      if (gameBoard[row][col] == GHOST && !invincible) {
         die();
       }
 

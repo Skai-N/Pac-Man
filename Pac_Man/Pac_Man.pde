@@ -54,6 +54,8 @@ void draw() {
   StringToSquares(gameBoard);
   //println(ghosts.size());
   //println(dots.size());
+  fill(255,255,255);
+  text(""+PacMan.getScore(),10,10);
 }
 void run() {
   

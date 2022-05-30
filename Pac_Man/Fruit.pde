@@ -28,4 +28,8 @@ public class Fruit extends Entity {
     fill(255,255,255);
     circle(getX() *SQUARESIZE + SQUARESIZE/2, getY() *SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
   }
+  
+ int getVal() {
+   return pointVal;
+ }
 }
