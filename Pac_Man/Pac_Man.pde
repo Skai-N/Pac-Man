@@ -36,34 +36,26 @@ void setup() {
   StringToSquares(gameBoard);
   PacMan.display();
 
+  dots.remove(dots.size() - 1);
   noStroke();
 }
 void draw() {
   background(0);
   noStroke();
-  run();
+  if (frameCount % 10 == 0) {
+    run();
+  }
   StringToSquares(gameBoard);
   //println(ghosts.size());
   //println(dots.size());
 }
 void run() {
-  //for (int i = 0; i < gameBoard.length; i++) {
-  //  for (int j = 0; j < gameBoard[i].length; j++) {
-  //    print(gameBoard[i][j] + " ");
-  //  }
-  //  println("");
-  //}
-  if (done())return;
-  //println(PacMan.getRow());
-  //println(PacMan.getCol());
+  if (!done()) {
+    PacMan.move(xDir, yDir);
 
-  PacMan.move(xDir, yDir);
-
-  //println(PacMan.getRow() + yDir);
-  //println(PacMan.getCol() + xDir);
-
-  for (Ghost g : ghosts) {
-    g.move();
+    for (Ghost g : ghosts) {
+      g.move();
+    }
   }
 }
 boolean done() {

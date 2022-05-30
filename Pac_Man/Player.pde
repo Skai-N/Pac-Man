@@ -21,8 +21,15 @@ public class Player extends Entity {
 
       gameBoard[row][col] = SPACE;
 
+
+
       row += dy;
       col += dx;
+
+      if (gameBoard[row][col] == FRUIT) {
+        dots.remove(dots.size() - 1);
+        println(dots.size());
+      }
 
       gameBoard[row][col] = PLAYER;
 
