@@ -23,4 +23,9 @@ public class Fruit extends Entity {
  int getType() {
   return type; 
  }
+ 
+ void display() {
+    fill(255,255,255);
+    circle(getX() *SQUARESIZE + SQUARESIZE/2, getY() *SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
+  }
 }
