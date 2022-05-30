@@ -4,7 +4,7 @@ import java.io.*;
 final int WALL = 0;
 final int SPACE = 1;
 final int FRUIT = 2;
-final int GHOST = -1;
+final int GHOST = 3;
 final int PLAYER = 4;
 
 int[] playerSpawn = new int[2];
@@ -43,7 +43,6 @@ void setup() {
   StringToSquares(gameBoard);
   PacMan.display();
 
-  dots.remove(dots.size() - 1);
   noStroke();
 }
 void draw() {
@@ -57,6 +56,15 @@ void draw() {
   //println(dots.size());
 }
 void run() {
+  
+  //for(int i = 0; i < gameBoard.length; i++) {
+  //  for(int j = 0; j < gameBoard[i].length; j++) {
+  //    print(gameBoard[i][j] + " ");
+  //  }
+  //  println();
+  //}
+  println();
+  
   if (!levelDone() && !gameOver()) {
     PacMan.move(xDir, yDir);
 

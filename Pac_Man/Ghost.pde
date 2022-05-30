@@ -16,10 +16,17 @@ public class Ghost extends Entity {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
+      int temp = gameBoard[row + dy][col + dx];
+
       row += dy;
       col += dx;
 
       gameBoard[row][col] = GHOST;
+      if (temp == PLAYER) {
+        PacMan.die();
+      } else {
+        gameBoard[row - dy][col - dx] = temp;
+      }
 
       display();
     }
@@ -38,7 +45,7 @@ public class Ghost extends Entity {
       }
     }
   }
-  
+
   void display() {
     fill(clr);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
