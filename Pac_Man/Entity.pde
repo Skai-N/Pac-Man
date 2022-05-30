@@ -60,6 +60,14 @@ public class Entity implements Eatable {
     y = newY;
   }
   
+  void setRow(int newRow) {
+    row = newRow;
+  }
+  
+  void setCol(int newCol) {
+    col = newCol;
+  }
+  
   void setEatable(boolean eatable) {
     isEatable = eatable;
   }
