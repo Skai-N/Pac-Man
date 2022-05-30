@@ -48,6 +48,60 @@ public class Ghost extends Entity {
     } else if (movePattern == onSight) {
       if (getRow() == PacMan.getRow()) {
         if (getCol() < PacMan.getCol()) {
+          if (gameBoard[row][col + 1] == WALL) {
+            move(random);
+          } else {
+            move(1, 0);
+          }
+        } else {
+          if (gameBoard[row][col - 1] == WALL) {
+            move(random);
+          } else {
+            move(-1, 0);
+          }
+        }
+      } else if (getCol() == PacMan.getCol()) {
+        if (getRow() < PacMan.getRow()) {
+          if (gameBoard[row + 1][col] == WALL) {
+            move(random);
+          } else {
+            move(0, 1);
+          }
+        } else {
+          if (gameBoard[row - 1][col] == WALL) {
+            move(random);
+          } else {
+            move(0, -1);
+          }
+        }
+      } else {
+        int[] directions = new int[2];
+        directions[0] = -1;
+        directions[1] = 1;
+
+        if (Math.random() < 0.5) {
+          move(0, directions[(int) (Math.random() * 2)]);
+        } else {
+          move(directions[(int) (Math.random() * 2)], 0);
+        }
+      }
+    }
+  }
+
+  void move(int mode) {
+    if (mode == random) {
+      int[] directions = new int[2];
+      directions[0] = -1;
+      directions[1] = 1;
+
+      if (Math.random() < 0.5) {
+        move(0, directions[(int) (Math.random() * 2)]);
+      } else {
+        move(directions[(int) (Math.random() * 2)], 0);
+      }
+    } else if (mode == onSight) {
+      if (getRow() == PacMan.getRow()) {
+        if (getCol() < PacMan.getCol()) {
           move(1, 0);
         } else {
           move(-1, 0);
