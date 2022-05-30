@@ -20,16 +20,17 @@ int yDir = 0;
 float SQUARESIZE;
 int[][] gameBoard;
 void setup() {
-  dots = new ArrayList<Fruit>();
-  ghosts = new ArrayList<Ghost>();
-
-  PacMan = new Player(width/2, height/2);
-
   size(720, 720);
   background(0);
   int ROWS = 30;
   int COLS = 30;
   SQUARESIZE = height/ROWS;
+
+  dots = new ArrayList<Fruit>();
+  ghosts = new ArrayList<Ghost>();
+
+  PacMan = new Player(width/2, height/2);
+
   gameBoard = readFile("level1.txt");
   loadGame();
   StringToSquares(gameBoard);
@@ -60,8 +61,6 @@ void run() {
   //println(PacMan.getCol());
 
   PacMan.move(xDir, yDir);
-  gameBoard[PacMan.getRow() + yDir][PacMan.getCol() + xDir] = PLAYER;
-  gameBoard[PacMan.getRow()][PacMan.getCol()] = SPACE;
 
   //println(PacMan.getRow() + yDir);
   //println(PacMan.getCol() + xDir);

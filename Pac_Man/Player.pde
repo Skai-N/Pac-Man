@@ -11,6 +11,20 @@ public class Player extends Entity {
     points = new Score();
   }
 
+  void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
+    setX(x + (speed * dx));
+    setY(y + (speed * dy));
+
+    gameBoard[row][col] = SPACE;
+
+    row += dy;
+    col += dx;
+    
+    gameBoard[row][col] = PLAYER;
+    
+    display();
+  }
+
   void display() {
     fill(250, 200, 0);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6, 11 * PI/6);
