@@ -4,10 +4,11 @@ import java.io.*;
 final int WALL = 0;
 final int SPACE = 1;
 final int FRUIT = 2;
-final int GHOST = 3;
+final int GHOST = -1;
 final int PLAYER = 4;
 
 int[] playerSpawn = new int[2];
+int[] ghostSpawn = new int[2];
 
 int ROWS;
 int COLS;
@@ -15,6 +16,7 @@ int COLS;
 ArrayList<Fruit> dots;
 ArrayList<Ghost> ghosts;
 Player PacMan;
+Ghost ghost;
 
 int xDir = 0;
 int yDir = 0;
@@ -31,9 +33,11 @@ void setup() {
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   
-  gameBoard = readFile("level1.txt");
+  gameBoard = readFile("level2.txt");
   
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
+  ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0,255,255));
+  ghosts.add(ghost);
   
   loadGame();
   StringToSquares(gameBoard);
@@ -53,7 +57,7 @@ void draw() {
   //println(dots.size());
 }
 void run() {
-  if (!done()) {
+  if (!levelDone() && !gameOver()) {
     PacMan.move(xDir, yDir);
 
     for (Ghost g : ghosts) {
@@ -61,9 +65,13 @@ void run() {
     }
   }
 }
-boolean done() {
+
+boolean levelDone() {
   return dots.size() == 0;
-  //return false;
+}
+
+boolean gameOver() {
+  return PacMan.getLives() == 0;
 }
 
 void keyPressed() {
@@ -99,6 +107,9 @@ void StringToSquares(int[][] map) {
       if (map[i][j] == PLAYER) {
         PacMan.display(xDir, yDir);
       }
+      if(map[i][j] == GHOST) {
+        ghost.display();
+      }
     }
   }
 }
@@ -131,6 +142,11 @@ int[][] readFile(String filename) {
         temp[i][j] = PLAYER;
         playerSpawn[0] = i;
         playerSpawn[1] = j;
+      }
+      else if(lines[i].charAt(j) == 'G') {
+        temp[i][j] = GHOST;
+        ghostSpawn[0] = i;
+        ghostSpawn[1] = j;
       }
     }
   }

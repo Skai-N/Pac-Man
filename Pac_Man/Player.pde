@@ -24,6 +24,9 @@ public class Player extends Entity {
       if (gameBoard[row][col] == FRUIT) {
         dots.remove(dots.size() - 1);
       }
+      if (gameBoard[row][col] == GHOST) {
+        die();
+      }
 
       gameBoard[row][col] = PLAYER;
 
