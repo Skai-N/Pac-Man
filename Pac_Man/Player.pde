@@ -27,6 +27,7 @@ public class Player extends Entity {
       }
       if (gameBoard[row][col] == GHOST && !invincible) {
         die();
+        ghost.respawn();
       }
 
       gameBoard[row][col] = PLAYER;

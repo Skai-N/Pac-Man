@@ -24,6 +24,7 @@ public class Ghost extends Entity {
       gameBoard[row][col] = GHOST;
       if (temp == PLAYER && PacMan.getState() == false) {
         PacMan.die();
+        respawn();
       } else {
         gameBoard[row - dy][col - dx] = temp;
       }
@@ -50,8 +51,20 @@ public class Ghost extends Entity {
     fill(clr);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
-  
-  int getVal(){
+
+  void respawn() {
+    setX(ghostSpawn[1] * (int) SQUARESIZE);
+    setY(ghostSpawn[0] * (int) SQUARESIZE);
+
+    setRow(ghostSpawn[0]);
+    setCol(ghostSpawn[1]);
+    
+    for(int item : ghostSpawn) {
+      println(item);
+    }
+  }
+
+  int getVal() {
     return pointVal;
   }
 }
