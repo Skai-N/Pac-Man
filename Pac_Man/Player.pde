@@ -11,6 +11,15 @@ public class Player extends Entity {
     points = new Score();
   }
 
+  void smooth(int dx, int dy) {
+    if (! (gameBoard[row + dy][col + dx] == WALL)) {
+      setX(x + ((speed * dx)/2));
+      setY(y + ((speed * dy)/2));
+
+      display();
+    }
+  }
+
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
     if (! (gameBoard[row + dy][col + dx] == WALL)) {
       setX(x + (speed * dx));
@@ -23,7 +32,6 @@ public class Player extends Entity {
 
       if (gameBoard[row][col] == FRUIT) {
         points.addScore(dots.remove(dots.size() - 1).getVal());
-        
       }
       if (gameBoard[row][col] == GHOST) {
         if(!invincible)die();
@@ -64,7 +72,7 @@ public class Player extends Entity {
 
   void die() {
     setLives(lives - 1);
-    if(getLives() > 0) {
+    if (getLives() > 0) {
       respawn();
     }
   }
@@ -72,7 +80,7 @@ public class Player extends Entity {
   void respawn() {
     setX(playerSpawn[1] * (int) SQUARESIZE);
     setY(playerSpawn[0] * (int) SQUARESIZE);
-    
+
     setRow(playerSpawn[0]);
     setCol(playerSpawn[1]);
   }
@@ -96,11 +104,15 @@ public class Player extends Entity {
   int getCol() {
     return getX() / (int) SQUARESIZE;
   }
+
+  void setInvincible() {
+    invincible = !invincible;
+  }
   
   void setInvincible(boolean b){
     invincible = b;
   }
-  boolean getState(){
+  boolean getState() {
     return invincible;
   }
 }
