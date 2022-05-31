@@ -32,4 +32,6 @@ public class Fruit extends Entity {
  int getVal() {
    return pointVal;
  }
+ 
+ 
 }
