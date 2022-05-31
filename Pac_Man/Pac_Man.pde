@@ -89,6 +89,9 @@ void run() {
       g.move();
     }
   }
+  else{
+    setup();
+  }
 }
 
 boolean levelDone() {
@@ -126,8 +129,8 @@ void StringToSquares(int[][] map) {
         rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE, SQUARESIZE);
       }
       if (map[i][j] == FRUIT) {
-        if (dots.get(indexOfFruit(i, j)).getType() == 0)fill(255, 255, 255);
-        if (dots.get(indexOfFruit(i, j)).getType() == 1)fill(255, 215, 0);
+        fill(255, 255, 255);
+        //if (dots.get(indexOfFruit(i, j)).getType() == 1)fill(255, 215, 0);
         circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
       }
       if (map[i][j] == PLAYER) {
@@ -181,7 +184,7 @@ int[][] readFile(String filename) {
 
 int indexOfFruit(int x, int y){
   for(int i = 0; i < dots.size(); i++){
-    if(dots.get(i).getRow() == x && dots.get(i).getCol() == y)return i; 
+    if(dots.get(i).getX() == x && dots.get(i).getY() == y)return i; 
   }
   return -1;
 }
