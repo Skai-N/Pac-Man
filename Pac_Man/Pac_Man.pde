@@ -51,18 +51,13 @@ void draw() {
   if (frameCount % 10 == 0) {
     run();
   }
-  //if(frameCount > 400 && frameCount < 700){
-  //  PacMan.setInvincible();
-  //  for(Ghost g : ghosts){
-  //    g.setEatable(true);
-  //  }
-  //}
-  //else{
-  //  PacMan.setInvincible();
-  //  for(Ghost g : ghosts){
-  //    g.setEatable(false);
-  //  }
-  //}
+  if(frameCount > 100){
+    PacMan.setInvincible(true);
+    for(Ghost g : ghosts){
+      g.setEatable(true);
+    }
+  }
+
 
   StringToSquares(gameBoard);
   //println(ghosts.size());
@@ -70,7 +65,7 @@ void draw() {
   fill(255, 255, 255);
   text("Score: "+PacMan.getScore(), 10, 10);
   text("Lives: " + PacMan.getLives(), 10, 720);
-  //text("Invincible: "+PacMan.getState(),50,10);
+  text("Invincible: "+PacMan.getState(),200,10);
 }
 void run() {
 

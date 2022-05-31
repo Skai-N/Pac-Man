@@ -33,11 +33,14 @@ public class Player extends Entity {
       if (gameBoard[row][col] == FRUIT) {
         points.addScore(dots.remove(dots.size() - 1).getVal());
       }
-      if (gameBoard[row][col] == GHOST && !invincible) {
-        die();
+      if (gameBoard[row][col] == GHOST) {
+        if(!invincible)die();
+        else{
+          points.addScore(200);
+        }
         ghost.respawn();
       }
-
+      
       gameBoard[row][col] = PLAYER;
 
       display(dx, dy);
@@ -104,6 +107,10 @@ public class Player extends Entity {
 
   void setInvincible() {
     invincible = !invincible;
+  }
+  
+  void setInvincible(boolean b){
+    invincible = b;
   }
   boolean getState() {
     return invincible;
