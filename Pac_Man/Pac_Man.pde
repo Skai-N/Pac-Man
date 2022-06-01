@@ -129,11 +129,11 @@ void StringToSquares(int[][] map) {
       }
       if (map[i][j] == FRUIT) {
         fill(255, 255, 255);
-        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2);
+        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
       }
       if (map[i][j] == BIGFRUIT){
         fill(255,215,0);
-        
+        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2);
       }
       if (map[i][j] == PLAYER) {
         PacMan.display(xDir, yDir);
