@@ -4,6 +4,8 @@ import java.io.*;
 final int WALL = 0;
 final int SPACE = 1;
 final int FRUIT = 2;
+final int BIGFRUIT = 5;
+final int CHERRY = 6;
 final int GHOST = 3;
 final int PLAYER = 4;
 
@@ -14,6 +16,7 @@ int ROWS;
 int COLS;
 
 ArrayList<Fruit> dots;
+ArrayList<Fruit> bigdots;
 ArrayList<Ghost> ghosts;
 Player PacMan;
 Ghost ghost;
@@ -32,7 +35,8 @@ void setup() {
 
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
-
+  bigdots = new ArrayList<Fruit>();
+  
   gameBoard = readFile("level3.txt");
 
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
@@ -90,7 +94,7 @@ void run() {
 }
 
 boolean levelDone() {
-  return dots.size() == 0;
+  return dots.size() == 0 && bigdots.size() == 0;
 }
 
 boolean gameOver() {
@@ -125,8 +129,11 @@ void StringToSquares(int[][] map) {
       }
       if (map[i][j] == FRUIT) {
         fill(255, 255, 255);
-        //if (dots.get(indexOfFruit(i, j)).getType() == 1)fill(255, 215, 0);
-        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
+        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2);
+      }
+      if (map[i][j] == BIGFRUIT){
+        fill(255,215,0);
+        
       }
       if (map[i][j] == PLAYER) {
         PacMan.display(xDir, yDir);
@@ -141,12 +148,11 @@ void StringToSquares(int[][] map) {
 void loadGame() {
   for (int i = 0; i < gameBoard.length; i++) {
     for (int j = 0; j < gameBoard[i].length; j++) {
-      if (gameBoard[i][j] == SPACE) {
-        gameBoard[i][j] = FRUIT;
-        if (random(10) >= 1)dots.add(new Fruit(i, j, 0));
-        else {
-          dots.add(new Fruit(i, j, 1));
-        }
+      if (gameBoard[i][j] == FRUIT) {
+        dots.add(new Fruit(i, j, 0));
+      }
+      if (gameBoard[i][j] == BIGFRUIT){
+        bigdots.add(new Fruit(i,j,1)); 
       }
     }
   }
