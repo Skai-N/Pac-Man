@@ -31,3 +31,5 @@ Skai 5/29/22: Cleaned up the overall graphics and made PacMan and the fruits dis
 Aahan 5/30/22: Added updating score and working on invincible modes depending on framecount.
 
 Skai 5/30/22: Added more maps to be able to test and use in general. PacMan and the ghosts have very crude mechanics.
+
+Aahan 5/31/22: Added Invincible mode and working on fruit modes with points/powerups.
