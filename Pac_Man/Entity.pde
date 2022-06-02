@@ -74,4 +74,9 @@ public class Entity implements Eatable {
   boolean getEatable() {
     return isEatable;
   }
+  
+  void changeSpeed(int speed_){
+    speed += speed_;
+  }
+  
 }
