@@ -33,3 +33,5 @@ Aahan 5/30/22: Added updating score and working on invincible modes depending on
 Skai 5/30/22: Added more maps to be able to test and use in general. PacMan and the ghosts have very crude mechanics.
 
 Aahan 5/31/22: Added Invincible mode and working on fruit modes with points/powerups.
+
+Skai 6/1/22: Started working on implementing a ghost chamber for ghosts to spawn in, created a new display for energizers, updated the map file to reflect these changes.
