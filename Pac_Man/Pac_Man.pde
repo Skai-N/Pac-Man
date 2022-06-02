@@ -29,6 +29,7 @@ float SQUARESIZE;
 int[][] gameBoard;
 
 int score = 0;
+int lives__ = 3;
 void setup() {
   size(720, 720);
   background(0);
@@ -42,7 +43,7 @@ void setup() {
   
   gameBoard = readFile("level3.txt");
 
-  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
+  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives__);
   ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   ghosts.add(ghost);
 
