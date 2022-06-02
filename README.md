@@ -34,4 +34,6 @@ Skai 5/30/22: Added more maps to be able to test and use in general. PacMan and 
 
 Aahan 5/31/22: Added Invincible mode and working on fruit modes with points/powerups.
 
+Aahan 6/1/22: Modified invincible mode to come and go in intervals + bigdots get right points
+
 Skai 6/1/22: Started working on implementing a ghost chamber for ghosts to spawn in, created a new display for energizers, updated the map file to reflect these changes.
