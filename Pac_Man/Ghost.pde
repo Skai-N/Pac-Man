@@ -1,6 +1,9 @@
 public class Ghost extends Entity {
   color clr;
+  int on;
+
   final int pointVal = 200;
+
   int movePattern;
   final int random = 0;
   final int onSight = 1;
@@ -10,6 +13,7 @@ public class Ghost extends Entity {
     speed = (int) SQUARESIZE;
     clr = startClr;
     movePattern = onSight;
+    on = SPACE;
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
@@ -17,18 +21,29 @@ public class Ghost extends Entity {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
-      int temp = gameBoard[row + dy][col + dx];
+
 
       row += dy;
       col += dx;
 
+      gameBoard[row - dy][col - dx] = on;
+
+      on = gameBoard[row][col];
+
       gameBoard[row][col] = GHOST;
-      if (temp == PLAYER) {
-        if(!PacMan.getState())PacMan.die();
-        respawn();
-      } else {
-        gameBoard[row - dy][col - dx] = temp;
+
+
+
+      if (on == PLAYER) {
+        if (!PacMan.getState()) {
+          PacMan.die();
+        } else {
+          respawn();
+        }
       }
+
+
+
 
       display();
     }
@@ -130,7 +145,7 @@ public class Ghost extends Entity {
 
   void display() {
     fill(clr);
-    if(getEatable() == true) fill(215,0,0);
+    if (getEatable() == true) fill(215, 0, 0);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
 

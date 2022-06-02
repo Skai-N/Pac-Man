@@ -56,7 +56,7 @@ void setup() {
 void draw() {
   background(0);
   noStroke();
-  if (frameCount % 4 == 0) {
+  if (frameCount % 10 == 0) {
     run();
   }
   //if (frameCount % 500 == 0) {
