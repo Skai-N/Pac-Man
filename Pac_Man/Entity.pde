@@ -71,4 +71,7 @@ public class Entity implements Eatable {
   void setEatable(boolean eatable) {
     isEatable = eatable;
   }
+  boolean getEatable() {
+    return isEatable;
+  }
 }

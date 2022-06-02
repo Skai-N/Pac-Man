@@ -130,6 +130,7 @@ public class Ghost extends Entity {
 
   void display() {
     fill(clr);
+    if(getEatable() == true) fill(215,0,0);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
 
