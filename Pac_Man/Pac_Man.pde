@@ -132,8 +132,8 @@ void StringToSquares(int[][] map) {
         circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
       }
       if (map[i][j] == BIGFRUIT){
-        fill(255,215,0);
-        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2);
+        fill(255,255,255);
+        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/1.5);
       }
       if (map[i][j] == PLAYER) {
         PacMan.display(xDir, yDir);
@@ -153,14 +153,10 @@ void loadGame() {
   for (int i = 0; i < gameBoard.length; i++) {
     for (int j = 0; j < gameBoard[i].length; j++) {
       if (gameBoard[i][j] == FRUIT) {
-<<<<<<< HEAD
-        dots.add(new Fruit(i, j, 1));
-=======
         dots.add(new Fruit(i, j, 0));
       }
       if (gameBoard[i][j] == BIGFRUIT){
         bigdots.add(new Fruit(i,j,1)); 
->>>>>>> main
       }
     }
   }
@@ -189,6 +185,9 @@ int[][] readFile(String filename) {
         temp[i][j] = SPACE;
       } else if (lines[i].charAt(j) == 'D') {
         temp[i][j] = DOOR;
+      }
+      else if(lines[i].charAt(j) == '@') {
+        temp[i][j] = BIGFRUIT;
       }
     }
   }
