@@ -27,6 +27,9 @@ int yDir = 0;
 
 float SQUARESIZE;
 int[][] gameBoard;
+
+int score = 0;
+int lives__ = 3;
 void setup() {
   size(720, 720);
   background(0);
@@ -40,7 +43,7 @@ void setup() {
   
   gameBoard = readFile("level3.txt");
 
-  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
+  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives__);
   ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   ghosts.add(ghost);
 
@@ -53,7 +56,7 @@ void setup() {
 void draw() {
   background(0);
   noStroke();
-  if (frameCount % 10 == 0) {
+  if (frameCount % 4 == 0) {
     run();
   }
   //if (frameCount % 500 == 0) {
@@ -74,7 +77,7 @@ void draw() {
   //println(ghosts.size());
   //println(dots.size());
   fill(255, 255, 255);
-  text("Score: "+PacMan.getScore(), 10, 10);
+  text("Score: "+(PacMan.getScore() + score), 10, 10);
   text("Lives: " + PacMan.getLives(), 10, 720);
   text("Invincible: "+PacMan.getState(), 200, 10);
 }
@@ -94,7 +97,11 @@ void run() {
     for (Ghost g : ghosts) {
       g.move();
     }
-  } else {
+  } else if(levelDone() && !gameOver()) {
+    score = PacMan.getScore();
+    setup();
+  }
+  else {
     setup();
   }
 }

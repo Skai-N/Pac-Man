@@ -3,10 +3,10 @@ public class Player extends Entity {
   boolean invincible;
   Score points;
 
-  Player(int x, int y) {
+  Player(int x, int y, int lives_) {
     super(x, y);
     speed = (int) SQUARESIZE;
-    lives = 3;
+    lives = lives_;
     invincible = false;
     points = new Score();
   }
