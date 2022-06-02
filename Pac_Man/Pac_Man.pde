@@ -8,6 +8,7 @@ final int BIGFRUIT = 5;
 final int CHERRY = 6;
 final int GHOST = 3;
 final int PLAYER = 4;
+final int DOOR = 7;
 
 int[] playerSpawn = new int[2];
 int[] ghostSpawn = new int[2];
@@ -55,9 +56,9 @@ void draw() {
   if (frameCount % 10 == 0) {
     run();
   }
-  if(frameCount > 100){
+  if (frameCount > 100) {
     PacMan.setInvincible(true);
-    for(Ghost g : ghosts){
+    for (Ghost g : ghosts) {
       g.setEatable(true);
     }
   }
@@ -69,7 +70,7 @@ void draw() {
   fill(255, 255, 255);
   text("Score: "+PacMan.getScore(), 10, 10);
   text("Lives: " + PacMan.getLives(), 10, 720);
-  text("Invincible: "+PacMan.getState(),200,10);
+  text("Invincible: "+PacMan.getState(), 200, 10);
 }
 void run() {
 
@@ -87,8 +88,7 @@ void run() {
     for (Ghost g : ghosts) {
       g.move();
     }
-  }
-  else{
+  } else {
     setup();
   }
 }
@@ -132,14 +132,18 @@ void StringToSquares(int[][] map) {
         circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
       }
       if (map[i][j] == BIGFRUIT){
-        fill(255,215,0);
-        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2);
+        fill(255,255,255);
+        circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/1.5);
       }
       if (map[i][j] == PLAYER) {
         PacMan.display(xDir, yDir);
       }
       if (map[i][j] == GHOST) {
         ghost.display();
+      }
+      if(map[i][j] == DOOR) {
+        fill(255,150,0);
+        rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE, SQUARESIZE);
       }
     }
   }
@@ -160,7 +164,7 @@ void loadGame() {
 
 int[][] readFile(String filename) {
   String[] lines = loadStrings(filename);
-  println(lines.length + "x" + lines[0].length() );
+  //println(lines.length + "x" + lines[0].length() );
   int len = lines[0].length();
   int[][] temp = new int[lines.length][len];
   for (int i = 0; i < lines.length; i++) {
@@ -168,7 +172,7 @@ int[][] readFile(String filename) {
       if (lines[i].charAt(j) == '#') {
         temp[i][j] = WALL;
       } else if (lines[i].charAt(j) == '*') {
-        temp[i][j] = SPACE;
+        temp[i][j] = FRUIT;
       } else if (lines[i].charAt(j) == 'S') {
         temp[i][j] = PLAYER;
         playerSpawn[0] = i;
@@ -177,15 +181,22 @@ int[][] readFile(String filename) {
         temp[i][j] = GHOST;
         ghostSpawn[0] = i;
         ghostSpawn[1] = j;
+      } else if (lines[i].charAt(j) == ' ') {
+        temp[i][j] = SPACE;
+      } else if (lines[i].charAt(j) == 'D') {
+        temp[i][j] = DOOR;
+      }
+      else if(lines[i].charAt(j) == '@') {
+        temp[i][j] = BIGFRUIT;
       }
     }
   }
   return temp;
 }
 
-int indexOfFruit(int x, int y){
-  for(int i = 0; i < dots.size(); i++){
-    if(dots.get(i).getX() == x && dots.get(i).getY() == y)return i; 
+int indexOfFruit(int x, int y) {
+  for (int i = 0; i < dots.size(); i++) {
+    if (dots.get(i).getX() == x && dots.get(i).getY() == y)return i;
   }
   return -1;
 }
