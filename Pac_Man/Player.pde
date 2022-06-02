@@ -34,7 +34,7 @@ public class Player extends Entity {
         points.addScore(dots.remove(dots.size() - 1).getVal());
       }
       if (gameBoard[row][col] == BIGFRUIT) {
-        points.addScore(dots.remove(bigdots.size() -1).getVal());
+        points.addScore(bigdots.remove(bigdots.size() -1).getVal());
       }
       if (gameBoard[row][col] == GHOST) {
         if(!invincible)die();
