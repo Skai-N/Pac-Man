@@ -37,3 +37,5 @@ Aahan 5/31/22: Added Invincible mode and working on fruit modes with points/powe
 Aahan 6/1/22: Modified invincible mode to come and go in intervals + bigdots get right points
 
 Skai 6/1/22: Started working on implementing a ghost chamber for ghosts to spawn in, created a new display for energizers, updated the map file to reflect these changes.
+
+Skai 6/2/22: Fixed the ghost being able to edit fruit locations (door fixed), made level progression fully functional, and stopped the ghost and PacMan from being able to move instantly after respawning.
