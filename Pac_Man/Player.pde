@@ -30,6 +30,9 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
+    if(col + dx > gameBoard[0].length && gameBoard[row][col] == SPACE)col = 0;
+    if(col + dx < 0 && gameBoard[row][col] == SPACE)col = gameBoard[0].length;
+    else{
     if (! (gameBoard[row + dy][col + dx] == WALL || gameBoard[row + dy][col + dx] == DOOR)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
@@ -61,7 +64,7 @@ public class Player extends Entity {
       display(dx, dy);
     }
   }
-
+  }
   void display() {
     fill(250, 200, 0);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
