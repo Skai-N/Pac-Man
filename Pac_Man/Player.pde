@@ -2,8 +2,8 @@ public class Player extends Entity {
   int lives;
   boolean invincible;
   Score points;
-  
-    Player(int x, int y) {
+
+  Player(int x, int y) {
     super(x, y);
     speed = (int) SQUARESIZE;
     lives = 3;
@@ -45,16 +45,14 @@ public class Player extends Entity {
         points.addScore(bigdots.remove(bigdots.size() -1).getVal());
       }
       if (gameBoard[row][col] == GHOST) {
-        if(!invincible) {
+        if (!invincible) {
           die();
-        }
-        else{
+        } else {
           points.addScore(200);
         }
         ghost.respawn();
-
       }
-      
+
       gameBoard[row][col] = PLAYER;
 
       display(dx, dy);
@@ -88,18 +86,19 @@ public class Player extends Entity {
     setLives(lives - 1);
     if (getLives() > 0) {
       respawn();
-      display();
     }
   }
 
   void respawn() {
     gameBoard[getRow()][getCol()] = SPACE;
-    
+
     setX(playerSpawn[1] * (int) SQUARESIZE);
     setY(playerSpawn[0] * (int) SQUARESIZE);
 
     setRow(playerSpawn[0]);
     setCol(playerSpawn[1]);
+
+    display();
   }
 
   void setLives(int numLives) {
@@ -113,7 +112,7 @@ public class Player extends Entity {
   int getScore() {
     return points.getScore();
   }
-  
+
   void setScore(int newScore) {
     points.addScore(newScore);
   }
@@ -129,11 +128,11 @@ public class Player extends Entity {
   void setInvincible() {
     invincible = !invincible;
   }
-  
-  void setInvincible(boolean b){
+
+  void setInvincible(boolean b) {
     invincible = b;
   }
-  
+
   boolean getState() {
     return invincible;
   }
