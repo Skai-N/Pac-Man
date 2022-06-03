@@ -99,10 +99,10 @@ void run() {
 void advanceLevel() {
   gameSpeed--;
   
-  reset(PacMan.getLives());
+  reset(PacMan.getLives(),PacMan.getScore());
 }
 
-void reset(int lives) {
+void reset(int lives, int score) {
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
@@ -110,6 +110,7 @@ void reset(int lives) {
   gameBoard = readFile("level3.txt");
 
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives);
+  PacMan.setScore(score);
   ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   ghosts.add(ghost);
 

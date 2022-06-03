@@ -113,8 +113,8 @@ public class Player extends Entity {
     return points.getScore();
   }
   
-  void setScore(Score newScore) {
-    points = newScore;
+  void setScore(int newScore) {
+    points.addScore(newScore);
   }
 
   int getRow() {
