@@ -88,6 +88,7 @@ public class Player extends Entity {
     setLives(lives - 1);
     if (getLives() > 0) {
       respawn();
+      display();
     }
   }
 
