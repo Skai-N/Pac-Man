@@ -33,6 +33,8 @@ int score = 0;
 int level = 1;
 int gameSpeed = 10;
 
+int[][] teleports;
+
 void setup() {
   size(720, 720);
   background(0);
@@ -227,7 +229,10 @@ int[][] readFile(String filename) {
         temp[i][j] = DOOR;
       } else if (lines[i].charAt(j) == '@') {
         temp[i][j] = BIGFRUIT;
+      } else if(lines[i].charAt(j) == '(') {
+        temp[i][j] =  
       }
+      
     }
   }
   return temp;
