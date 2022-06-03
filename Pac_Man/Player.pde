@@ -37,11 +37,14 @@ public class Player extends Entity {
         points.addScore(bigdots.remove(bigdots.size() -1).getVal());
       }
       if (gameBoard[row][col] == GHOST) {
-        if(!invincible)die();
+        if(!invincible) {
+          die();
+        }
         else{
           points.addScore(200);
         }
         ghost.respawn();
+
       }
       
       gameBoard[row][col] = PLAYER;
@@ -81,6 +84,8 @@ public class Player extends Entity {
   }
 
   void respawn() {
+    gameBoard[getRow()][getCol()] = SPACE;
+    
     setX(playerSpawn[1] * (int) SQUARESIZE);
     setY(playerSpawn[0] * (int) SQUARESIZE);
 

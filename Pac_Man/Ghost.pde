@@ -21,18 +21,10 @@ public class Ghost extends Entity {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
-
-
       row += dy;
       col += dx;
 
       gameBoard[row - dy][col - dx] = on;
-
-      on = gameBoard[row][col];
-
-      gameBoard[row][col] = GHOST;
-
-
 
       if (on == PLAYER) {
         if (!PacMan.getState()) {
@@ -42,8 +34,9 @@ public class Ghost extends Entity {
         }
       }
 
+      on = gameBoard[row][col];
 
-
+      gameBoard[row][col] = GHOST;
 
       display();
     }
@@ -150,11 +143,15 @@ public class Ghost extends Entity {
   }
 
   void respawn() {
+    gameBoard[getRow()][getCol()] = on;
+
     setX(ghostSpawn[1] * (int) SQUARESIZE);
     setY(ghostSpawn[0] * (int) SQUARESIZE);
 
     setRow(ghostSpawn[0]);
     setCol(ghostSpawn[1]);
+
+    on = SPACE;
   }
 
   int getVal() {

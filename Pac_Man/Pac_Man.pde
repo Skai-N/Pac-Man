@@ -53,43 +53,31 @@ void setup() {
 
   noStroke();
 }
+
 void draw() {
   background(0);
   noStroke();
   if (frameCount % 10 == 0) {
     run();
   }
-  //if (frameCount % 500 == 0) {
-  //  PacMan.setInvincible(true);
-  //  for (Ghost g : ghosts) {
-  //    g.setEatable(true);
-  //  }
-  //}
-  //if (frameCount % 700 == 0) {
-  //  PacMan.setInvincible(false);
-  //  for (Ghost g : ghosts) {
-  //    g.setEatable(false);
-  //  }
-  //}
-
 
   StringToSquares(gameBoard);
-  //println(ghosts.size());
-  //println(dots.size());
+
   fill(255, 255, 255);
   text("Score: "+(PacMan.getScore() + score), 10, 10);
   text("Lives: " + PacMan.getLives(), 10, 720);
   text("Invincible: "+PacMan.getState(), 200, 10);
 }
+
 void run() {
 
-  //for(int i = 0; i < gameBoard.length; i++) {
-  //  for(int j = 0; j < gameBoard[i].length; j++) {
-  //    print(gameBoard[i][j] + " ");
-  //  }
-  //  println();
-  //}
-  //println();
+  for(int i = 0; i < gameBoard.length; i++) {
+    for(int j = 0; j < gameBoard[i].length; j++) {
+      print(gameBoard[i][j] + " ");
+    }
+    println();
+  }
+  println();
 
   if (!levelDone() && !gameOver()) {
     PacMan.move(xDir, yDir);
@@ -97,13 +85,14 @@ void run() {
     for (Ghost g : ghosts) {
       g.move();
     }
-  } else if(levelDone() && !gameOver()) {
-    score = PacMan.getScore();
-    setup();
   }
-  else {
-    setup();
-  }
+  //else if(levelDone() && !gameOver()) {
+  //  score = PacMan.getScore();
+  //  setup();
+  //}
+  //else {
+  //  setup();
+  //}
 }
 
 boolean levelDone() {
@@ -137,7 +126,7 @@ void StringToSquares(int[][] map) {
   for (int i = 0; i < map.length; i++) {
     for (int j = 0; j < map[0].length; j++) {
       if (map[i][j] == WALL) {
-        fill(0, 0, 250);
+        fill(0,0,250);
         rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE, SQUARESIZE);
       }
       if (map[i][j] == FRUIT) {
