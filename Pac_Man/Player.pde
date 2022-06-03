@@ -11,10 +11,10 @@ public class Player extends Entity {
     points = new Score();
   }
 
-  Player(int x, int y, int lives_) {
+  Player(int x, int y, int startLives) {
     super(x, y);
     speed = (int) SQUARESIZE;
-    lives = lives_;
+    lives = startLives;
     invincible = false;
     points = new Score();
   }
