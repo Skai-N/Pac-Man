@@ -81,19 +81,23 @@ void run() {
   //  println();
   //}
   //println();
+  if (PacMan.getMoveable()) {
+    if (!levelDone() && !gameOver()) {
+      PacMan.move(xDir, yDir);
 
-  if (!levelDone() && !gameOver()) {
-    PacMan.move(xDir, yDir);
-
-    for (Ghost g : ghosts) {
-      g.move();
-    }
-  } else {
-    if (levelDone()) {
-      level++;
-      advanceLevel();
+      for (Ghost g : ghosts) {
+        g.move();
+      }
+    } else {
+      if (levelDone()) {
+        level++;
+        advanceLevel();
+      }
     }
   }
+  //else {
+  //  PacMan.display();
+  //}
 }
 
 void advanceLevel() {
@@ -132,6 +136,8 @@ boolean gameOver() {
 }
 
 void keyPressed() {
+   PacMan.setMoveable(true);
+  
   if (keyCode == UP || keyCode == 'w') {
     yDir = -1;
     xDir = 0;

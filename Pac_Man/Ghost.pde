@@ -29,9 +29,9 @@ public class Ghost extends Entity {
       if (on == PLAYER) {
         if (!PacMan.getState()) {
           PacMan.die();
-        } else {
-          respawn();
         }
+        
+        respawn();
       }
 
       on = gameBoard[row][col];

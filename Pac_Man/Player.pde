@@ -1,6 +1,7 @@
 public class Player extends Entity {
   int lives;
   boolean invincible;
+  boolean moveable = true;
   Score points;
 
   Player(int x, int y) {
@@ -98,6 +99,8 @@ public class Player extends Entity {
     setRow(playerSpawn[0]);
     setCol(playerSpawn[1]);
 
+    setMoveable(false);
+
     display();
   }
 
@@ -135,5 +138,13 @@ public class Player extends Entity {
 
   boolean getState() {
     return invincible;
+  }
+  
+  boolean getMoveable() { 
+    return moveable;
+  }
+  
+  void setMoveable(boolean b) {
+    moveable = b;
   }
 }
