@@ -2,6 +2,14 @@ public class Player extends Entity {
   int lives;
   boolean invincible;
   Score points;
+  
+    Player(int x, int y) {
+    super(x, y);
+    speed = (int) SQUARESIZE;
+    lives = 3;
+    invincible = false;
+    points = new Score();
+  }
 
   Player(int x, int y, int lives_) {
     super(x, y);
@@ -104,6 +112,10 @@ public class Player extends Entity {
   int getScore() {
     return points.getScore();
   }
+  
+  void setScore(Score newScore) {
+    points = newScore;
+  }
 
   int getRow() {
     return getY() / (int) SQUARESIZE;
@@ -120,6 +132,7 @@ public class Player extends Entity {
   void setInvincible(boolean b){
     invincible = b;
   }
+  
   boolean getState() {
     return invincible;
   }

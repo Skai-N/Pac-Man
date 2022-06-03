@@ -29,7 +29,9 @@ float SQUARESIZE;
 int[][] gameBoard;
 
 int score = 0;
-int lives__ = 3;
+int level = 1;
+int gameSpeed = 10;
+
 void setup() {
   size(720, 720);
   background(0);
@@ -40,10 +42,10 @@ void setup() {
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
-  
+
   gameBoard = readFile("level3.txt");
 
-  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives__);
+  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
   ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   ghosts.add(ghost);
 
@@ -57,7 +59,7 @@ void setup() {
 void draw() {
   background(0);
   noStroke();
-  if (frameCount % 10 == 0) {
+  if (frameCount % gameSpeed == 0) {
     run();
   }
 
@@ -65,19 +67,20 @@ void draw() {
 
   fill(255, 255, 255);
   text("Score: "+(PacMan.getScore() + score), 10, 10);
-  text("Lives: " + PacMan.getLives(), 10, 720);
-  text("Invincible: "+PacMan.getState(), 200, 10);
+  text("Level: " + level, 10, 720);
+  text("Lives: " + PacMan.getLives(), 100, 720);
+  text("Invincible: "+PacMan.getState(), 100, 10);
 }
 
 void run() {
 
-  for(int i = 0; i < gameBoard.length; i++) {
-    for(int j = 0; j < gameBoard[i].length; j++) {
-      print(gameBoard[i][j] + " ");
-    }
-    println();
-  }
-  println();
+  //for(int i = 0; i < gameBoard.length; i++) {
+  //  for(int j = 0; j < gameBoard[i].length; j++) {
+  //    print(gameBoard[i][j] + " ");
+  //  }
+  //  println();
+  //}
+  //println();
 
   if (!levelDone() && !gameOver()) {
     PacMan.move(xDir, yDir);
@@ -85,14 +88,36 @@ void run() {
     for (Ghost g : ghosts) {
       g.move();
     }
+  } else {
+    if (levelDone()) {
+      level++;
+      advanceLevel();
+    }
   }
-  //else if(levelDone() && !gameOver()) {
-  //  score = PacMan.getScore();
-  //  setup();
-  //}
-  //else {
-  //  setup();
-  //}
+}
+
+void advanceLevel() {
+  gameSpeed--;
+  
+  reset(PacMan.getLives());
+}
+
+void reset(int lives) {
+  dots = new ArrayList<Fruit>();
+  ghosts = new ArrayList<Ghost>();
+  bigdots = new ArrayList<Fruit>();
+
+  gameBoard = readFile("level3.txt");
+
+  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives);
+  ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
+  ghosts.add(ghost);
+
+  loadGame();
+  StringToSquares(gameBoard);
+  PacMan.display();
+
+  noStroke();
 }
 
 boolean levelDone() {
@@ -126,15 +151,15 @@ void StringToSquares(int[][] map) {
   for (int i = 0; i < map.length; i++) {
     for (int j = 0; j < map[0].length; j++) {
       if (map[i][j] == WALL) {
-        fill(0,0,250);
+        fill(0, 0, 250);
         rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE, SQUARESIZE);
       }
       if (map[i][j] == FRUIT) {
         fill(255, 255, 255);
         circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/3);
       }
-      if (map[i][j] == BIGFRUIT){
-        fill(255,255,255);
+      if (map[i][j] == BIGFRUIT) {
+        fill(255, 255, 255);
         circle(j*SQUARESIZE + SQUARESIZE/2, i*SQUARESIZE + SQUARESIZE/2, SQUARESIZE/1.5);
       }
       if (map[i][j] == PLAYER) {
@@ -143,8 +168,8 @@ void StringToSquares(int[][] map) {
       if (map[i][j] == GHOST) {
         ghost.display();
       }
-      if(map[i][j] == DOOR) {
-        fill(255,150,0);
+      if (map[i][j] == DOOR) {
+        fill(255, 150, 0);
         rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE, SQUARESIZE);
       }
     }
@@ -157,8 +182,8 @@ void loadGame() {
       if (gameBoard[i][j] == FRUIT) {
         dots.add(new Fruit(i, j, 0));
       }
-      if (gameBoard[i][j] == BIGFRUIT){
-        bigdots.add(new Fruit(i,j,1)); 
+      if (gameBoard[i][j] == BIGFRUIT) {
+        bigdots.add(new Fruit(i, j, 1));
       }
     }
   }
@@ -166,7 +191,6 @@ void loadGame() {
 
 int[][] readFile(String filename) {
   String[] lines = loadStrings(filename);
-  //println(lines.length + "x" + lines[0].length() );
   int len = lines[0].length();
   int[][] temp = new int[lines.length][len];
   for (int i = 0; i < lines.length; i++) {
@@ -187,8 +211,7 @@ int[][] readFile(String filename) {
         temp[i][j] = SPACE;
       } else if (lines[i].charAt(j) == 'D') {
         temp[i][j] = DOOR;
-      }
-      else if(lines[i].charAt(j) == '@') {
+      } else if (lines[i].charAt(j) == '@') {
         temp[i][j] = BIGFRUIT;
       }
     }
