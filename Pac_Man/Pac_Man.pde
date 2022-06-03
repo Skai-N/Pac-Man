@@ -97,9 +97,11 @@ void run() {
 }
 
 void advanceLevel() {
-  gameSpeed--;
-  
-  reset(PacMan.getLives(),PacMan.getScore());
+  if (gameSpeed > 1) {
+    gameSpeed--;
+  }  
+
+  reset(PacMan.getLives(), PacMan.getScore());
 }
 
 void reset(int lives, int score) {
