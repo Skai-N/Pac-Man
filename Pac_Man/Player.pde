@@ -52,7 +52,8 @@ public class Player extends Entity {
         } else {
           points.addScore(200);
         }
-        ghost.respawn();
+        if(row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
+        if(row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
       }
 
       gameBoard[row][col] = PLAYER;
