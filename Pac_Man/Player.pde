@@ -1,12 +1,21 @@
 public class Player extends Entity {
   int lives;
   boolean invincible;
+  boolean moveable = true;
   Score points;
 
-  Player(int x, int y, int lives_) {
+  Player(int x, int y) {
     super(x, y);
     speed = (int) SQUARESIZE;
-    lives = lives_;
+    lives = 3;
+    invincible = false;
+    points = new Score();
+  }
+
+  Player(int x, int y, int startLives) {
+    super(x, y);
+    speed = (int) SQUARESIZE;
+    lives = startLives;
     invincible = false;
     points = new Score();
   }
@@ -21,7 +30,7 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (! (gameBoard[row + dy][col + dx] == WALL)) {
+    if (! (gameBoard[row + dy][col + dx] == WALL || gameBoard[row + dy][col + dx] == DOOR)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
@@ -35,15 +44,17 @@ public class Player extends Entity {
       }
       if (gameBoard[row][col] == BIGFRUIT) {
         points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+        //setInvincible(true);
       }
       if (gameBoard[row][col] == GHOST) {
-        if(!invincible)die();
-        else{
+        if (!invincible) {
+          die();
+        } else {
           points.addScore(200);
         }
         ghost.respawn();
       }
-      
+
       gameBoard[row][col] = PLAYER;
 
       display(dx, dy);
@@ -81,11 +92,17 @@ public class Player extends Entity {
   }
 
   void respawn() {
+    gameBoard[getRow()][getCol()] = SPACE;
+
     setX(playerSpawn[1] * (int) SQUARESIZE);
     setY(playerSpawn[0] * (int) SQUARESIZE);
 
     setRow(playerSpawn[0]);
     setCol(playerSpawn[1]);
+
+    setMoveable(false);
+
+    display();
   }
 
   void setLives(int numLives) {
@@ -100,6 +117,10 @@ public class Player extends Entity {
     return points.getScore();
   }
 
+  void setScore(int newScore) {
+    points.addScore(newScore);
+  }
+
   int getRow() {
     return getY() / (int) SQUARESIZE;
   }
@@ -111,11 +132,20 @@ public class Player extends Entity {
   void setInvincible() {
     invincible = !invincible;
   }
-  
-  void setInvincible(boolean b){
+
+  void setInvincible(boolean b) {
     invincible = b;
   }
+
   boolean getState() {
     return invincible;
+  }
+  
+  boolean getMoveable() { 
+    return moveable;
+  }
+  
+  void setMoveable(boolean b) {
+    moveable = b;
   }
 }
