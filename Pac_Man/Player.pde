@@ -3,7 +3,7 @@ import java.util.Timer;
 public class Player extends Entity {
   int lives;
   boolean invincible;
-  boolean moveable = true;
+  boolean moveable = false;
   Score points;
 
   Player(int x, int y) {
@@ -45,7 +45,7 @@ public class Player extends Entity {
         points.addScore(dots.remove(dots.size() - 1).getVal());
       }
       if (gameBoard[row][col] == BIGFRUIT) {
-        timer();
+        //timer();
         points.addScore(bigdots.remove(bigdots.size() -1).getVal());
         //setInvincible(true);
       }
