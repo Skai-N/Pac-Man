@@ -1,7 +1,9 @@
+import java.util.Timer;
+
 public class Player extends Entity {
   int lives;
   boolean invincible;
-  boolean moveable = true;
+  boolean moveable = false;
   Score points;
 
   Player(int x, int y) {
@@ -43,6 +45,7 @@ public class Player extends Entity {
         points.addScore(dots.remove(dots.size() - 1).getVal());
       }
       if (gameBoard[row][col] == BIGFRUIT) {
+        //timer();
         points.addScore(bigdots.remove(bigdots.size() -1).getVal());
         //setInvincible(true);
       }
@@ -129,7 +132,7 @@ public class Player extends Entity {
     return getX() / (int) SQUARESIZE;
   }
 
-  void setInvincible() {
+  void toggleInvincible() {
     invincible = !invincible;
   }
 
@@ -137,14 +140,28 @@ public class Player extends Entity {
     invincible = b;
   }
 
+  void timer() {
+    Timer timer = new Timer();
+    
+    timer.schedule(new TimerTask() {
+      @Override
+        public void run() {
+        toggleInvincible();
+      }
+    }
+    , 10*1000);
+    //int countdown = 10000;
+    //Timer delay = new Timer(countdown, toggleInvincible());
+  }
+
   boolean getState() {
     return invincible;
   }
-  
+
   boolean getMoveable() { 
     return moveable;
   }
-  
+
   void setMoveable(boolean b) {
     moveable = b;
   }
