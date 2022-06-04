@@ -32,7 +32,11 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    
+    if(gameBoard[row][col] == TELEPORT){
+        int[] warp = otherTel(row, col);
+        row = warp[0]; col = warp[1];
+        setY(warp[0] + dy); setX(warp[1] + dx);
+    }
     if (! (gameBoard[row + dy][col + dx] == WALL || gameBoard[row + dy][col + dx] == DOOR)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
@@ -59,11 +63,7 @@ public class Player extends Entity {
         if(row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
         if(row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
       }
-      if(gameBoard[row][col] == TELEPORT){
-        int[] warp = otherTel(row, col);
-        row = warp[0]; col = warp[1];
-        setY(warp[0]); setX(warp[1]);
-      }
+
 
       gameBoard[row][col] = PLAYER;
 
@@ -180,7 +180,17 @@ public class Player extends Entity {
       if(teleports.get(i)[0] == rn[0] && teleports.get(i)[1] == rn[1])index = i;
     }
     if(index % 2 == 0)return teleports.get(index+1);
-    return teleports.get(index-1);
+    else{return teleports.get(index-1);}
+  }
+  
+  boolean inBounds(int row, int col){
+   try{
+   gameBoard[row][col] = gameBoard[row][col];return true;
+   } catch(ArrayIndexOutOfBoundsException ex){
+     return false;
+   }
+   
+   
   }
   
 }
