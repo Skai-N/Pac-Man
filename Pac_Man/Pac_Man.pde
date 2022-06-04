@@ -9,7 +9,7 @@ final int CHERRY = 6;
 final int GHOST = 3;
 final int PLAYER = 4;
 final int DOOR = 7;
-
+final int TELEPORT = 8;
 int[] playerSpawn = new int[2];
 int[] ghostSpawn = new int[2];
 
@@ -33,7 +33,7 @@ int score = 0;
 int level = 1;
 int gameSpeed = 10;
 
-int[][] teleports;
+ArrayList<int[]> teleports;
 
 void setup() {
   size(720, 720);
@@ -42,6 +42,7 @@ void setup() {
   int COLS = 30;
   SQUARESIZE = height/ROWS;
 
+  teleports = new ArrayList<int[]>();
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
@@ -229,8 +230,10 @@ int[][] readFile(String filename) {
         temp[i][j] = DOOR;
       } else if (lines[i].charAt(j) == '@') {
         temp[i][j] = BIGFRUIT;
-      } else if(lines[i].charAt(j) == '(') {
-        temp[i][j] =  
+      } else if (lines[i].charAt(j) == 't') {
+        temp[i][j] = TELEPORT;
+        teleports.add(new int[] {i, j});
+        
       }
       
     }
