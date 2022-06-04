@@ -59,6 +59,7 @@ void setup() {
   PacMan.display();
 
   noStroke();
+  
 }
 
 void draw() {
@@ -233,7 +234,6 @@ int[][] readFile(String filename) {
       } else if (lines[i].charAt(j) == 't') {
         temp[i][j] = TELEPORT;
         teleports.add(new int[] {i, j});
-        
       }
       
     }

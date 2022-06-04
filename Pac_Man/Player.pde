@@ -32,9 +32,7 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if(col + dx > gameBoard[0].length && gameBoard[row][col] == SPACE)col = 0;
-    if(col + dx < 0 && gameBoard[row][col] == SPACE)col = gameBoard[0].length;
-    else{
+    
     if (! (gameBoard[row + dy][col + dx] == WALL || gameBoard[row + dy][col + dx] == DOOR)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
@@ -61,13 +59,18 @@ public class Player extends Entity {
         if(row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
         if(row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
       }
+      if(gameBoard[row][col] == TELEPORT){
+        int[] warp = otherTel(row, col);
+        row = warp[0]; col = warp[1];
+        setY(warp[0]); setX(warp[1]);
+      }
 
       gameBoard[row][col] = PLAYER;
 
       display(dx, dy);
     }
   }
-  }
+  
   void display() {
     fill(250, 200, 0);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
@@ -169,4 +172,15 @@ public class Player extends Entity {
   void setMoveable(boolean b) {
     moveable = b;
   }
+  
+  int[] otherTel(int row, int col){
+    int[] rn = {row, col};
+    int index =0;
+    for(int i = 0; i < teleports.size(); i++){
+      if(teleports.get(i)[0] == rn[0] && teleports.get(i)[1] == rn[1])index = i;
+    }
+    if(index % 2 == 0)return teleports.get(index+1);
+    return teleports.get(index-1);
+  }
+  
 }
