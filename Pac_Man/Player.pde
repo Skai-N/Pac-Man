@@ -1,4 +1,5 @@
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player extends Entity {
   int lives;
@@ -60,9 +61,9 @@ public class Player extends Entity {
           points.addScore(dots.remove(dots.size() - 1).getVal());
         }
         if (gameBoard[row][col] == BIGFRUIT) {
-          //timer();
           points.addScore(bigdots.remove(bigdots.size() -1).getVal());
-          //setInvincible(true);
+          setInvincible(true);
+          timer();
         }
         if (gameBoard[row][col] == GHOST) {
           if (!invincible) {
@@ -164,16 +165,14 @@ public class Player extends Entity {
 
   void timer() {
     Timer timer = new Timer();
-
-    timer.schedule(new TimerTask() {
-      @Override
-        public void run() {
-        toggleInvincible();
-      }
-    }
-    , 10*1000);
-    //int countdown = 10000;
-    //Timer delay = new Timer(countdown, toggleInvincible());
+    TimerTask task = new TimerTask() {
+     @Override
+     public void run() {
+       toggleInvincible();
+     }
+    };
+    
+    timer.schedule(task, 8 * 1000);
   }
 
   boolean getState() {
