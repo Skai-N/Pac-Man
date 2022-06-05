@@ -1,3 +1,6 @@
+//import java.util.Timer;
+//import java.util.TimerTask;
+
 public class Ghost extends Entity {
   color clr;
   int on;
@@ -30,7 +33,7 @@ public class Ghost extends Entity {
         if (!PacMan.getState()) {
           PacMan.die();
         }
-        
+
         respawn();
       }
 
@@ -134,13 +137,39 @@ public class Ghost extends Entity {
     }
   }
 
-
-
   void display() {
     fill(clr);
-    if (getEatable() == true) fill(215, 0, 0);
+    if (PacMan.getState() == true) {
+      fill(100, 0, 255);
+    }
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
+
+  //void timer() {
+  //  Timer timer = new Timer();
+  //  TimerTask task = new TimerTask() {
+
+  //    int counter = 8;
+
+  //    @Override
+  //      public void run() {
+  //      if (counter > 0 ) {
+  //        if (counter % 2 == 0) {
+  //          fill(100, 0, 255);
+  //          //println("dark");
+  //        } else {
+  //          fill(150, 150, 255);
+  //          //println("light");
+  //        }
+  //        counter--;
+  //      } else {
+  //        fill(clr);
+  //      }
+  //    }
+  //  };
+
+  //  timer.schedule(task, 0, 2 * 1000);
+  //}
 
   void respawn() {
     gameBoard[getRow()][getCol()] = SPACE;

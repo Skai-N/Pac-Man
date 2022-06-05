@@ -91,22 +91,22 @@ public class Player extends Entity {
   }
 
   void display() {
-    fill(250, 200, 0);
+    fill(245, 191, 15);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
 
   void display(int dx, int dy) {
     if (dx == 1 && dy == 0) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6, 11 * PI/6);
     } else if (dx == 0 && dy == 1) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + PI/2, 11 * PI/6 + PI/2);
     } else if (dx == -1 && dy == 0) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + PI, 11 * PI/6 + PI);
     } else if (dx == 0 && dy == -1) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + (3 * PI/2), 11 * PI/6 + (3 * PI/2));
     } else {
       display();
