@@ -68,6 +68,9 @@ public class Player extends Entity {
         if (gameBoard[row][col] == GHOST) {
           if (!invincible) {
             die();
+            //for(Ghost g : ghosts) {
+            //  g.respawn();
+            //}
           } else {
             points.addScore(200);
           }

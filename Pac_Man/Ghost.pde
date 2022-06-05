@@ -17,7 +17,7 @@ public class Ghost extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (inBounds(row+dy,col+dx) && ! (gameBoard[row + dy][col + dx] == WALL)) {
+    if (! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
@@ -143,7 +143,7 @@ public class Ghost extends Entity {
   }
 
   void respawn() {
-    gameBoard[getRow()][getCol()] = on;
+    gameBoard[getRow()][getCol()] = SPACE;
 
     setX(ghostSpawn[1] * (int) SQUARESIZE);
     setY(ghostSpawn[0] * (int) SQUARESIZE);
