@@ -87,6 +87,7 @@ void run() {
   //  println();
   //}
   //println();
+  
   if (PacMan.getMoveable()) {
     if (!levelDone() && !gameOver()) {
       PacMan.move(xDir, yDir);

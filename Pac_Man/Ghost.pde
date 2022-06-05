@@ -27,15 +27,17 @@ public class Ghost extends Entity {
       row += dy;
       col += dx;
 
-      gameBoard[row - dy][col - dx] = on;
-
       if (on == PLAYER) {
         if (!PacMan.getState()) {
           PacMan.die();
         }
 
         respawn();
+      } else {
+        gameBoard[row - dy][col - dx] = on;
       }
+
+
 
       on = gameBoard[row][col];
 

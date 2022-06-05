@@ -81,9 +81,6 @@ public class Player extends Entity {
         on = SPACE;
       }
 
-
-
-
       gameBoard[row][col] = PLAYER;
 
       display(dx, dy);
