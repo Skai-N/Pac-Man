@@ -62,8 +62,10 @@ public class Player extends Entity {
       if(gameBoard[row][col] == TELEPORT){
         println(""+row + " " + col);
         int[] warp = otherTel(row, col);
-        row = warp[0]; col = warp[1];
-        setY(warp[1]); setX(warp[0]);
+        setRow(warp[0]);
+        setCol(warp[1]);
+        setY(warp[0] * (int) SQUARESIZE);
+        setX(warp[1] * (int) SQUARESIZE);
         
       }
 
@@ -176,8 +178,8 @@ public class Player extends Entity {
     moveable = b;
   }
   
-  int[] otherTel(int row, int col){
-    int[] rn = {row, col};
+  int[] otherTel(int r, int c){
+    int[] rn = {r, c};
     int index =0;
     for(int i = 0; i < teleports.size(); i++){
       if(teleports.get(i)[0] == rn[0] && teleports.get(i)[1] == rn[1])index = i;
