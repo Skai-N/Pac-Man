@@ -1,4 +1,5 @@
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player extends Entity {
   int lives;
@@ -35,7 +36,7 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL || gameBoard[row + dy][col + dx] == DOOR)) {
+    if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL && ! (gameBoard[row + dy][col + dx] == gameBoard[doorLocation[0]][doorLocation[1]]))) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
@@ -46,39 +47,37 @@ public class Player extends Entity {
 
       if (gameBoard[row][col] == TELEPORT) {
         int[] warp = otherTel(row, col);
-        
+
         setRow(warp[0]);
         setCol(warp[1]);
-        
+
         setY(warp[0] * (int) SQUARESIZE);
         setX(warp[1] * (int) SQUARESIZE);
-        
+
         on = TELEPORT;
       } else {
 
         if (gameBoard[row][col] == FRUIT) {
           points.addScore(dots.remove(dots.size() - 1).getVal());
-        }
-        if (gameBoard[row][col] == BIGFRUIT) {
-          //timer();
+        } else if (gameBoard[row][col] == BIGFRUIT) {
           points.addScore(bigdots.remove(bigdots.size() -1).getVal());
-          //setInvincible(true);
-        }
-        if (gameBoard[row][col] == GHOST) {
+          setInvincible(true);
+          invincibilityTimer();
+        } else if (gameBoard[row][col] == GHOST) {
           if (!invincible) {
             die();
+            //for(Ghost g : ghosts) {
+            //  g.respawn();
+            //}
           } else {
             points.addScore(200);
           }
           if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
           if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
         }
-        
+
         on = SPACE;
       }
-
-
-
 
       gameBoard[row][col] = PLAYER;
 
@@ -87,22 +86,22 @@ public class Player extends Entity {
   }
 
   void display() {
-    fill(250, 200, 0);
+    fill(245, 191, 15);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
 
   void display(int dx, int dy) {
     if (dx == 1 && dy == 0) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6, 11 * PI/6);
     } else if (dx == 0 && dy == 1) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + PI/2, 11 * PI/6 + PI/2);
     } else if (dx == -1 && dy == 0) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + PI, 11 * PI/6 + PI);
     } else if (dx == 0 && dy == -1) {
-      fill(250, 200, 0);
+      fill(245, 191, 15);
       arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, PI/6 + (3 * PI/2), 11 * PI/6 + (3 * PI/2));
     } else {
       display();
@@ -124,6 +123,8 @@ public class Player extends Entity {
 
     setRow(playerSpawn[0]);
     setCol(playerSpawn[1]);
+    
+    gameBoard[getRow()][getCol()] = PLAYER;
 
     setMoveable(false);
 
@@ -162,18 +163,16 @@ public class Player extends Entity {
     invincible = b;
   }
 
-  void timer() {
+  void invincibilityTimer() {
     Timer timer = new Timer();
-
-    timer.schedule(new TimerTask() {
+    TimerTask task = new TimerTask() {
       @Override
         public void run() {
         toggleInvincible();
       }
-    }
-    , 10*1000);
-    //int countdown = 10000;
-    //Timer delay = new Timer(countdown, toggleInvincible());
+    };
+
+    timer.schedule(task, 8 * 1000);
   }
 
   boolean getState() {

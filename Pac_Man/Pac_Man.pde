@@ -12,6 +12,7 @@ final int DOOR = 7;
 final int TELEPORT = 8;
 int[] playerSpawn = new int[2];
 int[] ghostSpawn = new int[2];
+int[] doorLocation = new int[2];
 
 int ROWS;
 int COLS;
@@ -87,6 +88,7 @@ void run() {
   //  println();
   //}
   //println();
+  
   if (PacMan.getMoveable()) {
     if (!levelDone() && !gameOver()) {
       PacMan.move(xDir, yDir);
@@ -229,6 +231,8 @@ int[][] readFile(String filename) {
         temp[i][j] = SPACE;
       } else if (lines[i].charAt(j) == 'D') {
         temp[i][j] = DOOR;
+        doorLocation[0] = i;
+        doorLocation[1] = j;
       } else if (lines[i].charAt(j) == '@') {
         temp[i][j] = BIGFRUIT;
       } else if (lines[i].charAt(j) == 't') {
