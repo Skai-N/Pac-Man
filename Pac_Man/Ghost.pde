@@ -17,7 +17,7 @@ public class Ghost extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (! (gameBoard[row + dy][col + dx] == WALL)) {
+    if (inBounds(row+dy,col+dx) && ! (gameBoard[row + dy][col + dx] == WALL)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 

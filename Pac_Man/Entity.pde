@@ -78,5 +78,11 @@ public class Entity implements Eatable {
   void changeSpeed(int speed_){
     speed += speed_;
   }
-  
+  boolean inBounds(int row, int col){
+   try{
+   gameBoard[row][col] = gameBoard[row][col];return true;
+   } catch(ArrayIndexOutOfBoundsException ex){
+     return false;
+   }
+  }
 }

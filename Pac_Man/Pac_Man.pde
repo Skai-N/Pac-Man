@@ -9,7 +9,7 @@ final int CHERRY = 6;
 final int GHOST = 3;
 final int PLAYER = 4;
 final int DOOR = 7;
-
+final int TELEPORT = 8;
 int[] playerSpawn = new int[2];
 int[] ghostSpawn = new int[2];
 
@@ -20,7 +20,8 @@ ArrayList<Fruit> dots;
 ArrayList<Fruit> bigdots;
 ArrayList<Ghost> ghosts;
 Player PacMan;
-Ghost ghost;
+Ghost pinky;
+Ghost blinky;
 
 int xDir = 0;
 int yDir = 0;
@@ -32,6 +33,8 @@ int score = 0;
 int level = 1;
 int gameSpeed = 10;
 
+ArrayList<int[]> teleports;
+
 void setup() {
   size(720, 720);
   background(0);
@@ -39,6 +42,7 @@ void setup() {
   int COLS = 30;
   SQUARESIZE = height/ROWS;
 
+  teleports = new ArrayList<int[]>();
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
@@ -46,14 +50,16 @@ void setup() {
   gameBoard = readFile("level3.txt");
 
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
-  ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
-  ghosts.add(ghost);
+  pinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
+  blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
+  ghosts.add(pinky);ghosts.add(blinky);
 
   loadGame();
   StringToSquares(gameBoard);
   PacMan.display();
 
   noStroke();
+  
 }
 
 void draw() {
@@ -117,8 +123,10 @@ void reset(int lives, int score) {
 
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives);
   PacMan.setScore(score);
-  ghost = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
-  ghosts.add(ghost);
+  pinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
+  ghosts.add(pinky);
+  blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
+  ghosts.add(blinky);
 
   loadGame();
   StringToSquares(gameBoard);
@@ -175,7 +183,8 @@ void StringToSquares(int[][] map) {
         PacMan.display(xDir, yDir);
       }
       if (map[i][j] == GHOST) {
-        ghost.display();
+        if (pinky.getRow() == i && pinky.getCol() == j)pinky.display();
+        if (blinky.getRow() == i && blinky.getCol() == j)blinky.display();
       }
       if (map[i][j] == DOOR) {
         fill(255, 150, 0);
@@ -222,7 +231,11 @@ int[][] readFile(String filename) {
         temp[i][j] = DOOR;
       } else if (lines[i].charAt(j) == '@') {
         temp[i][j] = BIGFRUIT;
+      } else if (lines[i].charAt(j) == 't') {
+        temp[i][j] = TELEPORT;
+        teleports.add(new int[] {i, j});
       }
+      
     }
   }
   return temp;
