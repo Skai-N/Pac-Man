@@ -20,24 +20,22 @@ public class Ghost extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST)) {
+    if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST)) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
       row += dy;
       col += dx;
 
-      if (on == PLAYER) {
+      gameBoard[row - dy][col - dx] = on;
+
+      if (gameBoard[row][col] == PLAYER) {
+        respawn();
+
         if (!PacMan.getState()) {
           PacMan.die();
         }
-
-        respawn();
-      } else {
-        gameBoard[row - dy][col - dx] = on;
       }
-
-
 
       on = gameBoard[row][col];
 
@@ -46,6 +44,42 @@ public class Ghost extends Entity {
       display();
     }
   }
+
+  //void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
+  //  if (! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST)) {
+  //    setX(x + (speed * dx));
+  //    setY(y + (speed * dy));
+
+  //    row += dy;
+  //    col += dx;
+
+  //    if (gameBoard[row][col] == PLAYER) {
+  //      if (!PacMan.getState()) {
+  //        PacMan.die();
+  //      } else {
+  //        //gameBoard[row - dy][col - dx] = SPACE;
+  //      }
+
+  //      respawn();
+  //    } else if (gameBoard[row][col] == TELEPORT) {
+  //      int[] warp = otherTel(row, col);
+
+  //      setRow(warp[0]);
+  //      setCol(warp[1]);
+
+  //      setY(warp[0] * (int) SQUARESIZE);
+  //      setX(warp[1] * (int) SQUARESIZE);
+  //    } else {
+  //      gameBoard[row - dy][col - dx] = on;
+  //    }
+
+  //    on = gameBoard[row][col];
+
+  //    gameBoard[row][col] = GHOST;
+
+  //    display();
+  //  }
+  //}
 
   void move() {
     if (movePattern == random) {
@@ -173,8 +207,22 @@ public class Ghost extends Entity {
   //  timer.schedule(task, 0, 2 * 1000);
   //}
 
+  int[] otherTel(int r, int c) {
+    int[] rn = {r, c};
+    int index =0;
+    for (int i = 0; i < teleports.size(); i++) {
+      if (teleports.get(i)[0] == rn[0] && teleports.get(i)[1] == rn[1])index = i;
+    }
+    if (index % 2 == 0)return teleports.get(index+1);
+    else {
+      return teleports.get(index-1);
+    }
+  }
+
   void respawn() {
-    gameBoard[getRow()][getCol()] = SPACE;
+    if (!PacMan.getState()) {
+      gameBoard[getRow()][getCol()] = SPACE;
+    }
 
     setX(ghostSpawn[1] * (int) SQUARESIZE);
     setY(ghostSpawn[0] * (int) SQUARESIZE);
