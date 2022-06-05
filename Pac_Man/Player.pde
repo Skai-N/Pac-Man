@@ -5,6 +5,7 @@ public class Player extends Entity {
   boolean invincible;
   boolean moveable = false;
   Score points;
+  int on;
 
   Player(int x, int y) {
     super(x, y);
@@ -12,6 +13,7 @@ public class Player extends Entity {
     lives = 3;
     invincible = false;
     points = new Score();
+    on = SPACE;
   }
 
   Player(int x, int y, int startLives) {
@@ -20,6 +22,7 @@ public class Player extends Entity {
     lives = startLives;
     invincible = false;
     points = new Score();
+    on = SPACE;
   }
 
   void smooth(int dx, int dy) {
@@ -36,36 +39,45 @@ public class Player extends Entity {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
-      gameBoard[row][col] = SPACE;
-
       row += dy;
       col += dx;
 
-      if (gameBoard[row][col] == FRUIT) {
-        points.addScore(dots.remove(dots.size() - 1).getVal());
-      }
-      if (gameBoard[row][col] == BIGFRUIT) {
-        //timer();
-        points.addScore(bigdots.remove(bigdots.size() -1).getVal());
-        //setInvincible(true);
-      }
-      if (gameBoard[row][col] == GHOST) {
-        if (!invincible) {
-          die();
-        } else {
-          points.addScore(200);
-        }
-        if(row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
-        if(row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
-      }
-      
-      if(gameBoard[row][col] == TELEPORT){
-        println(""+row + " " + col);
+      gameBoard[row - dy][col - dx] = on;
+
+      if (gameBoard[row][col] == TELEPORT) {
         int[] warp = otherTel(row, col);
-        row = warp[0]; col = warp[1];
-        setY(warp[1]); setX(warp[0]);
         
+        setRow(warp[0]);
+        setCol(warp[1]);
+        
+        setY(warp[0] * (int) SQUARESIZE);
+        setX(warp[1] * (int) SQUARESIZE);
+        
+        on = TELEPORT;
+      } else {
+
+        if (gameBoard[row][col] == FRUIT) {
+          points.addScore(dots.remove(dots.size() - 1).getVal());
+        }
+        if (gameBoard[row][col] == BIGFRUIT) {
+          //timer();
+          points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+          //setInvincible(true);
+        }
+        if (gameBoard[row][col] == GHOST) {
+          if (!invincible) {
+            die();
+          } else {
+            points.addScore(200);
+          }
+          if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
+          if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
+        }
+        
+        on = SPACE;
       }
+
+
 
 
       gameBoard[row][col] = PLAYER;
@@ -73,7 +85,7 @@ public class Player extends Entity {
       display(dx, dy);
     }
   }
-  
+
   void display() {
     fill(250, 200, 0);
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
@@ -152,7 +164,7 @@ public class Player extends Entity {
 
   void timer() {
     Timer timer = new Timer();
-    
+
     timer.schedule(new TimerTask() {
       @Override
         public void run() {
@@ -175,15 +187,16 @@ public class Player extends Entity {
   void setMoveable(boolean b) {
     moveable = b;
   }
-  
-  int[] otherTel(int row, int col){
-    int[] rn = {row, col};
+
+  int[] otherTel(int r, int c) {
+    int[] rn = {r, c};
     int index =0;
-    for(int i = 0; i < teleports.size(); i++){
-      if(teleports.get(i)[0] == rn[0] && teleports.get(i)[1] == rn[1])index = i;
+    for (int i = 0; i < teleports.size(); i++) {
+      if (teleports.get(i)[0] == rn[0] && teleports.get(i)[1] == rn[1])index = i;
     }
-    if(index % 2 == 0)return teleports.get(index+1);
-    else{return teleports.get(index-1);}
+    if (index % 2 == 0)return teleports.get(index+1);
+    else {
+      return teleports.get(index-1);
+    }
   }
-  
 }
