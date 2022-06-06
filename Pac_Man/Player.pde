@@ -66,12 +66,13 @@ public class Player extends Entity {
         } else if (gameBoard[row][col] == GHOST) {
           if (!invincible) {
             die();
-            //for(Ghost g : ghosts) {
-            //  g.respawn();
-            //}
+            for(Ghost g : ghosts) {
+              g.respawn();
+            }
           } else {
             points.addScore(200);
           }
+          
           if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
           if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
           if (row == inky.getRow() && col == inky.getCol() )inky.respawn();

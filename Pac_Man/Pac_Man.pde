@@ -219,10 +219,9 @@ void StringToSquares(int[][] map) {
         PacMan.display(xDir, yDir);
       }
       if (map[i][j] == GHOST) {
-        if (pinky.getRow() == i && pinky.getCol() == j)pinky.display();
-        if (blinky.getRow() == i && blinky.getCol() == j)blinky.display();
-        if (inky.getRow() == i && inky.getCol() == j )inky.display();
-        if (clyde.getRow() == i && clyde.getCol() == j)clyde.display();
+        for(Ghost g : ghosts){
+          if(g.getRow() == i && g.getCol() == j)g.display();
+        }
       }
       if (map[i][j] == DOOR) {
         fill(255, 150, 0);
