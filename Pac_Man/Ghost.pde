@@ -95,47 +95,47 @@ public class Ghost extends Entity {
     } else if (movePattern == onSight) {
       if (getRow() == PacMan.getRow()) {
         if (getCol() < PacMan.getCol()) {
+          
+          
           if (gameBoard[row][col + 1] == WALL) {
             move(random);
           } else {
-            if (!PacMan.getState()) {
-              move(1, 0);
-            } else {
-              move(-1, 0);
-            }
+            move(1, 0);
           }
+          
+          
         } else {
+          
+          
           if (gameBoard[row][col - 1] == WALL) {
             move(random);
           } else {
-            if (!PacMan.getState()) {
-              move(-1, 0);
-            } else {
-              move(1, 0);
-            }
+            move(-1, 0);
           }
         }
+        
+      
       } else if (getCol() == PacMan.getCol()) {
         if (getRow() < PacMan.getRow()) {
+          
+          
           if (gameBoard[row + 1][col] == WALL) {
             move(random);
           } else {
-            if (!PacMan.getState()) {
-              move(0, 1);
-            } else {
-              move(0, -1);
-            }
+            move(0, 1);
           }
+          
+          
         } else {
+          
+          
           if (gameBoard[row - 1][col] == WALL) {
             move(random);
           } else {
-            if (!PacMan.getState()) {
-              move(0, -1);
-            } else {
-              move(0, 1);
-            }
+            move(0, -1);
           }
+          
+          
         }
       } else {
         int[] directions = new int[2];
