@@ -98,13 +98,21 @@ public class Ghost extends Entity {
           if (gameBoard[row][col + 1] == WALL) {
             move(random);
           } else {
-            move(1, 0);
+            if (!PacMan.getState()) {
+              move(1, 0);
+            } else {
+              move(-1, 0);
+            }
           }
         } else {
           if (gameBoard[row][col - 1] == WALL) {
             move(random);
           } else {
-            move(-1, 0);
+            if (!PacMan.getState()) {
+              move(-1, 0);
+            } else {
+              move(1, 0);
+            }
           }
         }
       } else if (getCol() == PacMan.getCol()) {
@@ -112,13 +120,21 @@ public class Ghost extends Entity {
           if (gameBoard[row + 1][col] == WALL) {
             move(random);
           } else {
-            move(0, 1);
+            if (!PacMan.getState()) {
+              move(0, 1);
+            } else {
+              move(0, -1);
+            }
           }
         } else {
           if (gameBoard[row - 1][col] == WALL) {
             move(random);
           } else {
-            move(0, -1);
+            if (!PacMan.getState()) {
+              move(0, -1);
+            } else {
+              move(0, 1);
+            }
           }
         }
       } else {
