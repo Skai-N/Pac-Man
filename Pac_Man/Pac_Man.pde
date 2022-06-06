@@ -39,6 +39,7 @@ int gameSpeed = 10;
 ArrayList<int[]> teleports;
 
 boolean isStarted;
+PImage start;
 
 void setup() {
   size(720, 720);
@@ -51,9 +52,10 @@ void setup() {
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
-
+  
   gameBoard = readFile("level3.txt");
-
+  start = loadImage("pacmenload.png");
+  
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
   pinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255,53,184));
   inky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
@@ -62,7 +64,7 @@ void setup() {
   ghosts.add(pinky);ghosts.add(blinky);ghosts.add(clyde);ghosts.add(inky);
 
   loadGame();
-
+  
   noStroke();
   
 }
@@ -82,6 +84,9 @@ void draw() {
     text("Level: " + level, 10, 720);
     text("Lives: " + PacMan.getLives(), 100, 720);
     text("Invincible: "+PacMan.getState(), 100, 10);
+  }
+  else{
+   startDisplay(); 
   }
 }
 
@@ -106,6 +111,9 @@ void run() {
       if (levelDone()) {
         level++;
         advanceLevel();
+      }
+      if(gameOver()){
+        endDisplay();
       }
     }
   }
@@ -144,6 +152,12 @@ void reset(int lives, int score) {
   noStroke();
 }
 
+void startDisplay(){
+  image(start,0,0);
+}
+
+
+
 boolean levelDone() {
   return dots.size() == 0 && bigdots.size() == 0;
 }
@@ -171,7 +185,7 @@ void keyPressed() {
     yDir = 0;
     xDir = -1;
   }
-  if (key == 's'){
+  if (keyCode == ENTER){
    isStarted = true; 
   }
 }
