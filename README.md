@@ -38,8 +38,14 @@ Aahan 6/1/22: Modified invincible mode to come and go in intervals + bigdots get
 
 Skai 6/1/22: Started working on implementing a ghost chamber for ghosts to spawn in, created a new display for energizers, updated the map file to reflect these changes.
 
+Aahan 6/2/22: Added multiple ghosts movement and an updating score
+
 Skai 6/2/22: Fixed the ghost being able to edit fruit locations (door fixed), made level progression fully functional, and stopped the ghost and PacMan from being able to move instantly after respawning.
 
+Aahan 6/3/22: Maps now had a teleport, and an arraylist that stores warps and links them
+
 Skai 6/3/22: Fixed ghost and PacMan moving instantly after loading a new level and started working on PacMan invincibility after eating an energizer.
+
+Aahan 6/4/22: Updated the readfile and maps for teleportation.
 
 Skai 6/4/22: Fixed TPs to make them work properly.
