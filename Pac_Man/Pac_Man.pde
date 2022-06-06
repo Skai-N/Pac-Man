@@ -56,7 +56,7 @@ void setup() {
   pinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255,53,184));
   inky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
-  clyde = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(229, 193, 23));
+  clyde = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(235, 97, 35));
   ghosts.add(pinky);ghosts.add(blinky);ghosts.add(clyde);ghosts.add(inky);
 
   loadGame();
@@ -191,6 +191,8 @@ void StringToSquares(int[][] map) {
       if (map[i][j] == GHOST) {
         if (pinky.getRow() == i && pinky.getCol() == j)pinky.display();
         if (blinky.getRow() == i && blinky.getCol() == j)blinky.display();
+        if (inky.getRow() == i && inky.getCol() == j )inky.display();
+        if (clyde.getRow() == i && clyde.getCol() == j)clyde.display();
       }
       if (map[i][j] == DOOR) {
         fill(255, 150, 0);

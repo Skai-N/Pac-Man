@@ -74,7 +74,9 @@ public class Player extends Entity {
           }
           if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
           if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
-        }
+          if (row == inky.getRow() && col == inky.getCol() )inky.respawn();
+          if (row == clyde.getRow() && col == clyde.getCol() )clyde.respawn();
+      }
 
         on = SPACE;
       }
