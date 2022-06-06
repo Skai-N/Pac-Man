@@ -38,13 +38,15 @@ int gameSpeed = 10;
 
 ArrayList<int[]> teleports;
 
+boolean isStarted;
+
 void setup() {
   size(720, 720);
   background(0);
   int ROWS = 30;
   int COLS = 30;
   SQUARESIZE = height/ROWS;
-
+  isStarted = false;
   teleports = new ArrayList<int[]>();
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
@@ -60,8 +62,6 @@ void setup() {
   ghosts.add(pinky);ghosts.add(blinky);ghosts.add(clyde);ghosts.add(inky);
 
   loadGame();
-  StringToSquares(gameBoard);
-  PacMan.display();
 
   noStroke();
   
@@ -70,17 +70,19 @@ void setup() {
 void draw() {
   background(0);
   noStroke();
-  if (frameCount % gameSpeed == 0) {
-    run();
+  if(isStarted){
+    if (frameCount % gameSpeed == 0) {
+      run();
+    }
+  
+    StringToSquares(gameBoard);
+  
+    fill(255, 255, 255);
+    text("Score: "+(PacMan.getScore() + score), 10, 10);
+    text("Level: " + level, 10, 720);
+    text("Lives: " + PacMan.getLives(), 100, 720);
+    text("Invincible: "+PacMan.getState(), 100, 10);
   }
-
-  StringToSquares(gameBoard);
-
-  fill(255, 255, 255);
-  text("Score: "+(PacMan.getScore() + score), 10, 10);
-  text("Level: " + level, 10, 720);
-  text("Lives: " + PacMan.getLives(), 100, 720);
-  text("Invincible: "+PacMan.getState(), 100, 10);
 }
 
 void run() {
@@ -168,6 +170,9 @@ void keyPressed() {
   if (keyCode == LEFT || keyCode == 'a') {
     yDir = 0;
     xDir = -1;
+  }
+  if (key == 's'){
+   isStarted = true; 
   }
 }
 
