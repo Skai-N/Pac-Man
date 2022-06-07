@@ -7,6 +7,7 @@ public class Player extends Entity {
   boolean moveable = false;
   Score points;
   int on;
+  boolean timerOn;
 
   Player(int x, int y) {
     super(x, y);
@@ -15,6 +16,7 @@ public class Player extends Entity {
     invincible = false;
     points = new Score();
     on = SPACE;
+    timerOn = false;
   }
 
   Player(int x, int y, int startLives) {
@@ -24,6 +26,7 @@ public class Player extends Entity {
     invincible = false;
     points = new Score();
     on = SPACE;
+    timerOn = false;
   }
 
   void smooth(int dx, int dy) {
@@ -61,23 +64,26 @@ public class Player extends Entity {
           points.addScore(dots.remove(dots.size() - 1).getVal());
         } else if (gameBoard[row][col] == BIGFRUIT) {
           points.addScore(bigdots.remove(bigdots.size() -1).getVal());
-          setInvincible(true);
-          invincibilityTimer();
+          if (!timerOn) {
+            setInvincible(true);
+            invincibilityTimer();
+            timerOn = true;
+          }
         } else if (gameBoard[row][col] == GHOST) {
           if (!invincible) {
             die();
-            for(Ghost g : ghosts) {
+            for (Ghost g : ghosts) {
               g.respawn();
             }
           } else {
             points.addScore(200);
           }
-          
+
           if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
           if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
           if (row == inky.getRow() && col == inky.getCol() )inky.respawn();
           if (row == clyde.getRow() && col == clyde.getCol() )clyde.respawn();
-      }
+        }
 
         on = SPACE;
       }
@@ -126,7 +132,7 @@ public class Player extends Entity {
 
     setRow(playerSpawn[0]);
     setCol(playerSpawn[1]);
-    
+
     gameBoard[getRow()][getCol()] = PLAYER;
 
     setMoveable(false);
@@ -171,7 +177,8 @@ public class Player extends Entity {
     TimerTask task = new TimerTask() {
       @Override
         public void run() {
-        toggleInvincible();
+        timerOn = false;
+        setInvincible(false);
       }
     };
 
