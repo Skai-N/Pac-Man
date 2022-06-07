@@ -45,42 +45,6 @@ public class Ghost extends Entity {
     }
   }
 
-  //void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-  //  if (! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST)) {
-  //    setX(x + (speed * dx));
-  //    setY(y + (speed * dy));
-
-  //    row += dy;
-  //    col += dx;
-
-  //    if (gameBoard[row][col] == PLAYER) {
-  //      if (!PacMan.getState()) {
-  //        PacMan.die();
-  //      } else {
-  //        //gameBoard[row - dy][col - dx] = SPACE;
-  //      }
-
-  //      respawn();
-  //    } else if (gameBoard[row][col] == TELEPORT) {
-  //      int[] warp = otherTel(row, col);
-
-  //      setRow(warp[0]);
-  //      setCol(warp[1]);
-
-  //      setY(warp[0] * (int) SQUARESIZE);
-  //      setX(warp[1] * (int) SQUARESIZE);
-  //    } else {
-  //      gameBoard[row - dy][col - dx] = on;
-  //    }
-
-  //    on = gameBoard[row][col];
-
-  //    gameBoard[row][col] = GHOST;
-
-  //    display();
-  //  }
-  //}
-
   void move() {
     if (movePattern == random) {
       int[] directions = new int[2];

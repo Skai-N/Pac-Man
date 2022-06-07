@@ -39,7 +39,7 @@ public class Player extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL && ! (gameBoard[row + dy][col + dx] == gameBoard[doorLocation[0]][doorLocation[1]]))) {
+    if (inBounds(row+dy, col+dx) && gameBoard[getRow() + dy][getCol() + dx] != WALL && gameBoard[getRow() + dy][getCol() + dx] != gameBoard[doorLocation[0]][doorLocation[1]]) {
       setX(getX() + (speed * dx));
       setY(getY() + (speed * dy));
 

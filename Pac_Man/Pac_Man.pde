@@ -128,9 +128,6 @@ void run() {
       
     }
   }
-  //else {
-  //  PacMan.display();
-  //}
 }
 
 void advanceLevel() {
@@ -229,10 +226,6 @@ void StringToSquares(int[][] map) {
           if(g.getRow() == i && g.getCol() == j)g.display();
         }
       }
-      //if (map[i][j] == DOOR) {
-      //  fill(255, 150, 0);
-      //  rect(j*SQUARESIZE, i*SQUARESIZE, SQUARESIZE, SQUARESIZE);
-      //}
     }
   }
 }
