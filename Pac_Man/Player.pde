@@ -31,17 +31,17 @@ public class Player extends Entity {
 
   void smooth(int dx, int dy) {
     if (! (gameBoard[row + dy][col + dx] == WALL)) {
-      setX(x + ((speed * dx)/2));
-      setY(y + ((speed * dy)/2));
+      setX(getX() + ((speed * dx)/2));
+      setY(getY() + ((speed * dy)/2));
 
-      display();
+      display(dx,dy);
     }
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
     if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL && ! (gameBoard[row + dy][col + dx] == gameBoard[doorLocation[0]][doorLocation[1]]))) {
-      setX(x + (speed * dx));
-      setY(y + (speed * dy));
+      setX(getX() + (speed * dx));
+      setY(getY() + (speed * dy));
 
       row += dy;
       col += dx;
