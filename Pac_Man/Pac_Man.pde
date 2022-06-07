@@ -17,6 +17,7 @@ int[] doorLocation = new int[2];
 int ROWS;
 int COLS;
 
+ArrayList<Integer> scores; 
 ArrayList<Fruit> dots;
 ArrayList<Fruit> bigdots;
 ArrayList<Ghost> ghosts;
@@ -48,8 +49,11 @@ void setup() {
   int ROWS = 30;
   int COLS = 30;
   SQUARESIZE = height/ROWS;
+  
   isStarted = false;
   teleports = new ArrayList<int[]>();
+  scores = new ArrayList<Integer>();
+  
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
@@ -84,10 +88,12 @@ void draw() {
   
     fill(255, 255, 255);
     text("Score: "+(PacMan.getScore() + score), 10, 10);
+    text("High Score: " + highScore(), 100, 10);
     text("Level: " + level, 10, 720);
     text("Lives: " + PacMan.getLives(), 100, 720);
-    text("Invincible: "+PacMan.getState(), 100, 10);
+    text("Invincible: "+PacMan.getState(), 500, 10);
     if(gameOver()){
+     scores.add(PacMan.getScore());
      endDisplay();
     }
   }
@@ -285,4 +291,12 @@ int indexOfFruit(int x, int y) {
     if (dots.get(i).getX() == x && dots.get(i).getY() == y)return i;
   }
   return -1;
+}
+
+int highScore(){
+  int max = 0;
+  for(int i : scores){
+    if (i > max)max = i;
+  }
+  return max;
 }
