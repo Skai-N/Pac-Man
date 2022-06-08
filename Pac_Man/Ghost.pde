@@ -20,33 +20,34 @@ public class Ghost extends Entity {
     movePattern = onSight;
     on = SPACE;
     gameBoard[getRow()][getCol()] = GHOST;
+    spawnPoint = ghostSpawn;
 
-    if (clr == color(255, 50, 10)) {
-      spawnPoint = ghostSpawn;
-    } else if (clr == color(255, 53, 184)) {
-      spawnPoint = q1;
-    } else if (clr == color(0, 255, 255)) {
-      spawnPoint = q2;
-    } else if (clr == color(235, 97, 35)) {
-      spawnPoint = q3;
-    }
+    //if (clr == color(255, 50, 10)) {
+    //  spawnPoint = ghostSpawn;
+    //} else if (clr == color(255, 53, 184)) {
+    //  spawnPoint = q1;
+    //} else if (clr == color(0, 255, 255)) {
+    //  spawnPoint = q2;
+    //} else if (clr == color(235, 97, 35)) {
+    //  spawnPoint = q3;
+    //}
   }
 
-  int getQPosition() {
-    if (getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) {
-      return 0;
-    } else if (getRow() == q1[0] && getCol() == q1[1]) {
-      return 1;
-    } else if (getRow() == q2[0] && getCol() == q2[1]) {
-      return 2;
-    } else if (getRow() == q3[0] && getCol() == q3[1]) {
-      return 3;
-    } else if ( getRow() == doorLocation[0] && getCol() == doorLocation[1]) {
-      return -1;
-    } else {
-      return -2;
-    }
-  }
+  //int getQPosition() {
+  //  if (getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) {
+  //    return 0;
+  //  } else if (getRow() == q1[0] && getCol() == q1[1]) {
+  //    return 1;
+  //  } else if (getRow() == q2[0] && getCol() == q2[1]) {
+  //    return 2;
+  //  } else if (getRow() == q3[0] && getCol() == q3[1]) {
+  //    return 3;
+  //  } else if ( getRow() == doorLocation[0] && getCol() == doorLocation[1]) {
+  //    return -1;
+  //  } else {
+  //    return -2;
+  //  }
+  //}
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
     //if((getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) || (getRow() == q1[0] && getCol() == q1[1]) || (getRow() == q2[0] && getCol() == q2[1]) || (getRow() == q3[0] && getCol() == q3[1])) {
@@ -56,63 +57,65 @@ public class Ghost extends Entity {
     //if (getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) {
     //  move(0,-1);
     //} else 
-    if (getRow() == q1[0] && getCol() == q1[1]) {
-      row = ghostSpawn[0];
-      col = ghostSpawn[1];
+    //if (getRow() == q1[0] && getCol() == q1[1]) {
+    //  row = ghostSpawn[0];
+    //  col = ghostSpawn[1];
 
-      setX(getCol() * speed);
-      setY(getRow() * speed);
+    //  setX(getCol() * speed);
+    //  setY(getRow() * speed);
 
-      gameBoard[row - dy][col - dx] = on;
+    //  gameBoard[row - dy][col - dx] = on;
 
-      on = gameBoard[row][col];
+    //  on = gameBoard[row][col];
 
-      gameBoard[row][col] = GHOST;
+    //  gameBoard[row][col] = GHOST;
 
-      display();
-    } else if (getRow() == q2[0] && getCol() == q2[1]) {
-      row = q1[0];
-      col = q1[1];
+    //  display();
+    //} else if (getRow() == q2[0] && getCol() == q2[1]) {
+    //  row = q1[0];
+    //  col = q1[1];
 
-      setX(getCol() * speed);
-      setY(getRow() * speed);
+    //  setX(getCol() * speed);
+    //  setY(getRow() * speed);
 
-      gameBoard[row - dy][col - dx] = on;
+    //  gameBoard[row - dy][col - dx] = on;
 
-      on = gameBoard[row][col];
+    //  on = gameBoard[row][col];
 
-      gameBoard[row][col] = GHOST;
+    //  gameBoard[row][col] = GHOST;
 
-      display();
-    } else if (getRow() == q3[0] && getCol() == q3[1]) {
-      row = q2[0];
-      col = q2[1];
+    //  display();
+    //} else if (getRow() == q3[0] && getCol() == q3[1]) {
+    //  row = q2[0];
+    //  col = q2[1];
 
-      setX(getCol() * speed);
-      setY(getRow() * speed);
+    //  setX(getCol() * speed);
+    //  setY(getRow() * speed);
 
-      gameBoard[row - dy][col - dx] = on;
+    //  gameBoard[row - dy][col - dx] = on;
 
-      on = gameBoard[row][col];
+    //  on = gameBoard[row][col];
 
-      gameBoard[row][col] = GHOST;
+    //  gameBoard[row][col] = GHOST;
 
-      display();
-    } else if ( getRow() == doorLocation[0] && getCol() == doorLocation[1]) {
-      row = q3[0];
-      col = q3[1];
+    //  display();
+    //} else if ( getRow() == doorLocation[0] && getCol() == doorLocation[1]) {
+    //  row = q3[0];
+    //  col = q3[1];
 
-      setX(getCol() * speed);
-      setY(getRow() * speed);
+    //  setX(getCol() * speed);
+    //  setY(getRow() * speed);
 
-      gameBoard[row - dy][col - dx] = on;
+    //  gameBoard[row - dy][col - dx] = on;
 
-      on = gameBoard[row][col];
+    //  on = gameBoard[row][col];
 
-      gameBoard[row][col] = GHOST;
+    //  gameBoard[row][col] = GHOST;
 
-      display();
-    } else if (inBounds(row+dy, col+dx) && gameBoard[row + dy][col + dx] != WALL && gameBoard[row + dy][col + dx] != GHOST && gameBoard[row + dy][col + dx] != TELEPORT) {
+    //  display();
+    //} else 
+    
+    if (inBounds(row+dy, col+dx) && gameBoard[row + dy][col + dx] != WALL && gameBoard[row + dy][col + dx] != GHOST && gameBoard[row + dy][col + dx] != TELEPORT) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
@@ -262,44 +265,45 @@ public class Ghost extends Entity {
           move(directions[(int) (Math.random() * 2)], 0);
         }
       }
-    } else if (mode == spawn) {
-      int qPos = getQPosition();
-      if (qPos > -2) {
-        switch(qPos) {
-        case -1:
-          int[] up = {-1, 0};
-          int[] down = {1, 0};
-          int[] left = {0, -1};
-          int[] right = {0, 1};
+    } 
+    //else if (mode == spawn) {
+    //  int qPos = getQPosition();
+    //  if (qPos > -2) {
+    //    switch(qPos) {
+    //    case -1:
+    //      int[] up = {-1, 0};
+    //      int[] down = {1, 0};
+    //      int[] left = {0, -1};
+    //      int[] right = {0, 1};
 
-          int[][] directions = {up, down, left, right};
+    //      int[][] directions = {up, down, left, right};
 
-          for (int i = 0; i < directions.length; i++) {
-            if (gameBoard[getRow() + directions[i][0]][getCol() + directions[i][1]] == SPACE) {
-              move(directions[i][1] - getCol(), directions[i][0] - getRow());
-              i = directions.length;
-            }
-          }
-          break;
+    //      for (int i = 0; i < directions.length; i++) {
+    //        if (gameBoard[getRow() + directions[i][0]][getCol() + directions[i][1]] == SPACE) {
+    //          move(directions[i][1] - getCol(), directions[i][0] - getRow());
+    //          i = directions.length;
+    //        }
+    //      }
+    //      break;
 
-        case 0:
-          move(doorLocation[1] - getCol(), doorLocation[0] - getRow());
-          break;
+    //    case 0:
+    //      move(doorLocation[1] - getCol(), doorLocation[0] - getRow());
+    //      break;
 
-        case 1:
-          move(ghostSpawn[1] - getCol(), ghostSpawn[0] - getRow());
-          break;
+    //    case 1:
+    //      move(ghostSpawn[1] - getCol(), ghostSpawn[0] - getRow());
+    //      break;
 
-        case 2:
-          move(q1[1] - getCol(), q1[0] - getRow());
-          break;
+    //    case 2:
+    //      move(q1[1] - getCol(), q1[0] - getRow());
+    //      break;
 
-        case 3:
-          move(q2[1] - getCol(), q2[0] - getRow());
-          break;
-        }
-      }
-    }
+    //    case 3:
+    //      move(q2[1] - getCol(), q2[0] - getRow());
+    //      break;
+    //    }
+    //  }
+    //}
   }
 
   void display() {
