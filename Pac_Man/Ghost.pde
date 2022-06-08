@@ -4,12 +4,14 @@
 public class Ghost extends Entity {
   color clr;
   int on;
+  int[] spawnPoint;
 
   final int pointVal = 200;
 
   int movePattern;
   final int random = 0;
   final int onSight = 1;
+  final int spawn = 2;
 
   Ghost(int startX, int startY, color startClr) {
     super(startX, startY);
@@ -17,10 +19,100 @@ public class Ghost extends Entity {
     clr = startClr;
     movePattern = onSight;
     on = SPACE;
+    gameBoard[getRow()][getCol()] = GHOST;
+
+    if (clr == color(255, 50, 10)) {
+      spawnPoint = ghostSpawn;
+    } else if (clr == color(255, 53, 184)) {
+      spawnPoint = q1;
+    } else if (clr == color(0, 255, 255)) {
+      spawnPoint = q2;
+    } else if (clr == color(235, 97, 35)) {
+      spawnPoint = q3;
+    }
+  }
+
+  int getQPosition() {
+    if (getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) {
+      return 0;
+    } else if (getRow() == q1[0] && getCol() == q1[1]) {
+      return 1;
+    } else if (getRow() == q2[0] && getCol() == q2[1]) {
+      return 2;
+    } else if (getRow() == q3[0] && getCol() == q3[1]) {
+      return 3;
+    } else if ( getRow() == doorLocation[0] && getCol() == doorLocation[1]) {
+      return -1;
+    } else {
+      return -2;
+    }
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST)) {
+    //if((getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) || (getRow() == q1[0] && getCol() == q1[1]) || (getRow() == q2[0] && getCol() == q2[1]) || (getRow() == q3[0] && getCol() == q3[1])) {
+    // move(spawn); 
+    //}
+
+    //if (getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) {
+    //  move(0,-1);
+    //} else 
+    if (getRow() == q1[0] && getCol() == q1[1]) {
+      row = ghostSpawn[0];
+      col = ghostSpawn[1];
+
+      setX(getCol() * speed);
+      setY(getRow() * speed);
+
+      gameBoard[row - dy][col - dx] = on;
+
+      on = gameBoard[row][col];
+
+      gameBoard[row][col] = GHOST;
+
+      display();
+    } else if (getRow() == q2[0] && getCol() == q2[1]) {
+      row = q1[0];
+      col = q1[1];
+
+      setX(getCol() * speed);
+      setY(getRow() * speed);
+
+      gameBoard[row - dy][col - dx] = on;
+
+      on = gameBoard[row][col];
+
+      gameBoard[row][col] = GHOST;
+
+      display();
+    } else if (getRow() == q3[0] && getCol() == q3[1]) {
+      row = q2[0];
+      col = q2[1];
+
+      setX(getCol() * speed);
+      setY(getRow() * speed);
+
+      gameBoard[row - dy][col - dx] = on;
+
+      on = gameBoard[row][col];
+
+      gameBoard[row][col] = GHOST;
+
+      display();
+    } else if ( getRow() == doorLocation[0] && getCol() == doorLocation[1]) {
+      row = q3[0];
+      col = q3[1];
+
+      setX(getCol() * speed);
+      setY(getRow() * speed);
+
+      gameBoard[row - dy][col - dx] = on;
+
+      on = gameBoard[row][col];
+
+      gameBoard[row][col] = GHOST;
+
+      display();
+    } else if (inBounds(row+dy, col+dx) && gameBoard[row + dy][col + dx] != WALL && gameBoard[row + dy][col + dx] != GHOST && gameBoard[row + dy][col + dx] != TELEPORT) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
@@ -170,6 +262,43 @@ public class Ghost extends Entity {
           move(directions[(int) (Math.random() * 2)], 0);
         }
       }
+    } else if (mode == spawn) {
+      int qPos = getQPosition();
+      if (qPos > -2) {
+        switch(qPos) {
+        case -1:
+          int[] up = {-1, 0};
+          int[] down = {1, 0};
+          int[] left = {0, -1};
+          int[] right = {0, 1};
+
+          int[][] directions = {up, down, left, right};
+
+          for (int i = 0; i < directions.length; i++) {
+            if (gameBoard[getRow() + directions[i][0]][getCol() + directions[i][1]] == SPACE) {
+              move(directions[i][1] - getCol(), directions[i][0] - getRow());
+              i = directions.length;
+            }
+          }
+          break;
+
+        case 0:
+          move(doorLocation[1] - getCol(), doorLocation[0] - getRow());
+          break;
+
+        case 1:
+          move(ghostSpawn[1] - getCol(), ghostSpawn[0] - getRow());
+          break;
+
+        case 2:
+          move(q1[1] - getCol(), q1[0] - getRow());
+          break;
+
+        case 3:
+          move(q2[1] - getCol(), q2[0] - getRow());
+          break;
+        }
+      }
     }
   }
 
@@ -224,11 +353,11 @@ public class Ghost extends Entity {
       gameBoard[getRow()][getCol()] = SPACE;
     }
 
-    setX(ghostSpawn[1] * (int) SQUARESIZE);
-    setY(ghostSpawn[0] * (int) SQUARESIZE);
+    setX(spawnPoint[1] * (int) SQUARESIZE);
+    setY(spawnPoint[0] * (int) SQUARESIZE);
 
-    setRow(ghostSpawn[0]);
-    setCol(ghostSpawn[1]);
+    setRow(spawnPoint[0]);
+    setCol(spawnPoint[1]);
 
     on = SPACE;
   }
