@@ -88,9 +88,7 @@ void draw() {
   noStroke();
 
   if (isStarted) {
-    if (frameCount % gameSpeed == 0) {
-      run();
-    }
+    run();
 
     StringToSquares(gameBoard);
 
