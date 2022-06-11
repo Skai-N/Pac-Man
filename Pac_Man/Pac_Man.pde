@@ -65,7 +65,7 @@ void setup() {
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
 
-  gameBoard = readFile("level3.txt");
+  gameBoard = readFile("level4.txt");
   start = loadImage("pacmenload.png");
   end = loadImage("endscreen.png");
 
@@ -122,9 +122,11 @@ void draw() {
 
 
 
-    if (frameCount % gameSpeed == 0) {
+    if (frameCount % 60 == 0) {
       run();
     }
+    
+    //run();
 
     StringToSquares(gameBoard);
 
@@ -157,8 +159,8 @@ void draw() {
 
 void run() {
 
-  for (int i = 0; i < gameBoard.length; i++) {
-    for (int j = 0; j < gameBoard[i].length; j++) {
+  for(int i = 0; i < gameBoard.length; i++) {
+    for(int j = 0; j < gameBoard[i].length; j++) {
       print(gameBoard[i][j] + " ");
     }
     println();
@@ -194,7 +196,7 @@ void reset(int lives, int score) {
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
 
-  gameBoard = readFile("level3.txt");
+  gameBoard = readFile("level4.txt");
 
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives);
   PacMan.setScore(score);
