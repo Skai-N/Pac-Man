@@ -122,7 +122,7 @@ void draw() {
 
 
 
-    if (frameCount % 60 == 0) {
+    if (frameCount % gameSpeed == 0) {
       run();
     }
     
@@ -159,13 +159,13 @@ void draw() {
 
 void run() {
 
-  for(int i = 0; i < gameBoard.length; i++) {
-    for(int j = 0; j < gameBoard[i].length; j++) {
-      print(gameBoard[i][j] + " ");
-    }
-    println();
-  }
-  println();
+  //for(int i = 0; i < gameBoard.length; i++) {
+  //  for(int j = 0; j < gameBoard[i].length; j++) {
+  //    print(gameBoard[i][j] + " ");
+  //  }
+  //  println();
+  //}
+  //println();
 
   if (PacMan.getMoveable()) {
     if (!levelDone() && !gameOver()) {
