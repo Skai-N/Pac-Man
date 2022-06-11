@@ -1,9 +1,6 @@
 import java.util.*;
 import java.io.*;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 final int WALL = 0;
 final int SPACE = 1;
 final int FRUIT = 2;
@@ -14,7 +11,9 @@ final int PLAYER = 4;
 final int DOOR = 7;
 final int TELEPORT = 8;
 int[] playerSpawn = new int[2];
-Queue<Ghost> ghostSpawnQ = new LinkedList<Ghost>();
+ArrayList<Ghost> ghostSpawnQ = new ArrayList<Ghost>(4);
+boolean ghostMoveable = false;
+boolean ghostTimerOn = false;
 int[] ghostSpawn = new int[2];
 int[] q1 = new int[2];
 int[] q2 = new int[2];
@@ -95,31 +94,16 @@ void draw() {
   background(0);
   noStroke();
 
-  for (int i = 0; i < gameBoard.length; i++) {
-    for (int j = 0; j < gameBoard[i].length; j++) {
-      print(gameBoard[i][j] + " ");
-    }
-    println();
-  }
-  println();
+  //for (int i = 0; i < gameBoard.length; i++) {
+  //  for (int j = 0; j < gameBoard[i].length; j++) {
+  //    print(gameBoard[i][j] + " ");
+  //  }
+  //  println();
+  //}
+  //println();
 
   if (isStarted) {
-    run();
-
-    //Timer timer = new Timer();
-    //TimerTask task = new TimerTask() {
-    //  @Override
-    //    public void run() {
-    //    if (ghostSpawnQ.size() > 0) {
-    //      ghostSpawnQ.poll().move();
-    //    }
-    //    else {
-    //      timer.cancel();
-    //    }
-    //  }
-    //};
-
-    //timer.schedule(task, 0, 3 * 1000);
+    //run();
 
     if (frameCount % gameSpeed == 0) {
       run();
@@ -144,7 +128,7 @@ void draw() {
       fill(245, 191, 15);
       arc(32, 708, 15, 15, PI/6, 11 * PI/6);
     }
-    //text("Invincible: "+PacMan.getState(), 500, 10);
+    
     if (gameOver()) {
       scores.add(PacMan.getScore());
       endDisplay();
@@ -156,13 +140,24 @@ void draw() {
 
 void run() {
 
-  for(int i = 0; i < gameBoard.length; i++) {
-    for(int j = 0; j < gameBoard[i].length; j++) {
-      print(gameBoard[i][j] + " ");
+  //for (int i = 0; i < gameBoard.length; i++) {
+  //  for (int j = 0; j < gameBoard[i].length; j++) {
+  //    print(gameBoard[i][j] + " ");
+  //  }
+  //  println();
+  //}
+  //println();
+
+  if (ghostMoveable) {
+    if (ghostSpawnQ.size() > 0) {
+      if (!ghostTimerOn) {
+        Ghost g = ghostSpawnQ.remove(0);
+        g.setMoveable(true);
+        respawnTimer();
+        ghostTimerOn = true;
+      }
     }
-    println();
   }
-  println();
 
   if (PacMan.getMoveable()) {
     if (!levelDone() && !gameOver()) {
@@ -189,6 +184,9 @@ void advanceLevel() {
 }
 
 void reset(int lives, int score) {
+  ghostMoveable = false;
+  ghostTimerOn = false;
+
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
@@ -242,18 +240,26 @@ void keyPressed() {
   if (keyCode == UP || keyCode == 'w') {
     yDir = -1;
     xDir = 0;
+
+    ghostMoveable = true;
   }
   if (keyCode == DOWN || keyCode == 's') {
     yDir = 1;
     xDir = 0;
+
+    ghostMoveable = true;
   }
   if (keyCode == RIGHT || keyCode == 'd') {
     yDir = 0;
     xDir = 1;
+
+    ghostMoveable = true;
   }
   if (keyCode == LEFT || keyCode == 'a') {
     yDir = 0;
     xDir = -1;
+
+    ghostMoveable = true;
   }
   if (keyCode == ENTER) {
     isStarted = true;
@@ -365,3 +371,35 @@ int highScore() {
   }
   return max;
 }
+
+void respawnTimer() {
+  Timer timer = new Timer();
+  TimerTask task = new TimerTask() {
+    @Override
+      public void run() {
+      //ghostRespawnable = true;
+      ghostTimerOn = false;
+    }
+  };
+
+  timer.schedule(task, 3 * 1000);
+}
+
+//void ghostReset() {
+//  ghostTimerOn = false;
+
+//  blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
+//  pinky = new Ghost(q1[1] * (int) SQUARESIZE, q1[0] * (int) SQUARESIZE, color(255, 53, 184));
+//  inky = new Ghost(q2[1] * (int) SQUARESIZE, q2[0] * (int) SQUARESIZE, color(0, 255, 255));
+//  clyde = new Ghost(q3[1] * (int) SQUARESIZE, q3[0] * (int) SQUARESIZE, color(235, 97, 35));
+
+//  ghosts.add(blinky);
+//  ghosts.add(pinky);
+//  ghosts.add(inky);
+//  ghosts.add(clyde);
+
+//  ghostSpawnQ.add(blinky);
+//  ghostSpawnQ.add(pinky);
+//  ghostSpawnQ.add(inky);
+//  ghostSpawnQ.add(clyde);
+//}

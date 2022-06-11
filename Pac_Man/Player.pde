@@ -29,15 +29,6 @@ public class Player extends Entity {
     timerOn = false;
   }
 
-  void smooth(int dx, int dy) {
-    if (! (gameBoard[row + dy][col + dx] == WALL)) {
-      setX(getX() + ((speed * dx)/2));
-      setY(getY() + ((speed * dy)/2));
-
-      display(dx,dy);
-    }
-  }
-
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
     if (inBounds(row+dy, col+dx) && gameBoard[getRow() + dy][getCol() + dx] != WALL && gameBoard[getRow() + dy][getCol() + dx] != gameBoard[doorLocation[0]][doorLocation[1]]) {
       setX(getX() + ((int) speed * dx));
@@ -63,7 +54,7 @@ public class Player extends Entity {
         if (gameBoard[row][col] == FRUIT) {
           points.addScore(dots.remove(dots.size() - 1).getVal());
         } else if (gameBoard[row][col] == BIGFRUIT) {
-          points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+          points.addScore(bigdots.remove(bigdots.size() - 1).getVal());
           if (!timerOn) {
             setInvincible(true);
             invincibilityTimer();
@@ -79,10 +70,10 @@ public class Player extends Entity {
             points.addScore(200);
           }
 
-          if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
-          if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
-          if (row == inky.getRow() && col == inky.getCol() )inky.respawn();
-          if (row == clyde.getRow() && col == clyde.getCol() )clyde.respawn();
+          if (row == pinky.getRow() && col == pinky.getCol() ) ghostSpawnQ.add(pinky);
+          if (row == blinky.getRow() && col == blinky.getCol() ) ghostSpawnQ.add(blinky);
+          if (row == inky.getRow() && col == inky.getCol() ) ghostSpawnQ.add(inky);
+          if (row == clyde.getRow() && col == clyde.getCol() ) ghostSpawnQ.add(clyde);
         }
 
         on = SPACE;

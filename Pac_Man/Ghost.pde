@@ -1,10 +1,8 @@
-//import java.util.Timer;
-//import java.util.TimerTask;
-
 public class Ghost extends Entity {
   color clr;
   int on;
   int[] spawnPoint;
+  boolean moveable;
 
   final int pointVal = 200;
 
@@ -21,9 +19,10 @@ public class Ghost extends Entity {
     on = SPACE;
     gameBoard[getRow()][getCol()] = GHOST;
     spawnPoint = ghostSpawn;
+    moveable = false;
   }
 
-  int getQPosition() {
+  int getSpawnPosition() {
     if (getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) {
       return 0;
     } else if (getRow() == q1[0] && getCol() == q1[1]) {
@@ -39,68 +38,93 @@ public class Ghost extends Entity {
     }
   }
 
-  void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
+  int getQPosition() {
+    return ghostSpawnQ.indexOf(this);
+  }
+
+  void setSpawn() {
     switch(getQPosition()) {
-    case -2:
-      if (inBounds(row+dy, col+dx) && gameBoard[row + dy][col + dx] != WALL && gameBoard[row + dy][col + dx] != GHOST && gameBoard[row + dy][col + dx] != TELEPORT && gameBoard[row + dy][col + dx] != DOOR) {
-        setX(x + (speed * dx));
-        setY(y + (speed * dy));
-
-        row += dy;
-        col += dx;
-
-        gameBoard[row - dy][col - dx] = on;
-
-        on = gameBoard[row][col];
-        gameBoard[row][col] = GHOST;
-
-        if (gameBoard[row][col] == PLAYER) {
-          respawn();
-
-          if (!PacMan.getState()) {
-            PacMan.die();
-          }
-        }
-      }
-
+    case 0:
+      spawnPoint = ghostSpawn;
       break;
 
-    case -1:
-    case 0:
-    case 3:
-      if (gameBoard[row - 1][col] != WALL && gameBoard[row - 1][col] != GHOST) {
-        setX(x + (speed * 0));
-        setY(y + (speed * -1));
-
-        row += -1;
-        col += 0;
-
-        gameBoard[row - -1][col - 0] = on;
-
-        on = gameBoard[row][col];
-        gameBoard[row][col] = GHOST;
-
-        break;
-      }
-
     case 1:
+      spawnPoint = q1;
+      break;
+
     case 2:
-      if (gameBoard[row][col - 1] != WALL && gameBoard[row][col - 1] != GHOST) {
-        setX(x + (speed * -1));
-        setY(y + (speed * 0));
+      spawnPoint = q2;
+      break;
 
-        row += 0;
-        col += -1;
+    case 3:
+      spawnPoint = q3;
+      break;
+    }
+  }
 
-        gameBoard[row - 0][col - -1] = on;
+  void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
+    if (moveable) {
+      switch(getSpawnPosition()) {
+      case -2:
+        if (inBounds(row+dy, col+dx) && gameBoard[row + dy][col + dx] != WALL && gameBoard[row + dy][col + dx] != GHOST && gameBoard[row + dy][col + dx] != TELEPORT && gameBoard[row + dy][col + dx] != DOOR) {
+          setX(x + (speed * dx));
+          setY(y + (speed * dy));
 
-        on = gameBoard[row][col];
-        gameBoard[row][col] = GHOST;
+          row += dy;
+          col += dx;
+
+          gameBoard[row - dy][col - dx] = on;
+
+          if (gameBoard[row][col] == PLAYER) {
+            if (!PacMan.getState()) {
+              PacMan.die();
+            }
+
+            respawn();
+          }
+
+          on = gameBoard[row][col];
+          gameBoard[row][col] = GHOST;
+        }
 
         break;
+
+      case -1:
+      case 0:
+      case 3:
+        if (gameBoard[row - 1][col] != WALL && gameBoard[row - 1][col] != GHOST) {
+          setX(x + (speed * 0));
+          setY(y + (speed * -1));
+
+          row += -1;
+          col += 0;
+
+          gameBoard[row - -1][col - 0] = on;
+
+          on = gameBoard[row][col];
+          gameBoard[row][col] = GHOST;
+
+          break;
+        }
+
+      case 1:
+      case 2:
+        if (gameBoard[row][col - 1] != WALL && gameBoard[row][col - 1] != GHOST) {
+          setX(x + (speed * -1));
+          setY(y + (speed * 0));
+
+          row += 0;
+          col += -1;
+
+          gameBoard[row - 0][col - -1] = on;
+
+          on = gameBoard[row][col];
+          gameBoard[row][col] = GHOST;
+
+          break;
+        }
       }
     }
-
     display();
   }
 
@@ -181,17 +205,15 @@ public class Ghost extends Entity {
           }
         }
       } else {
-        //if (getQPosition() == -2) {
-          int[] directions = new int[2];
-          directions[0] = -1;
-          directions[1] = 1;
+        int[] directions = new int[2];
+        directions[0] = -1;
+        directions[1] = 1;
 
-          if (Math.random() < 0.5) {
-            move(0, directions[(int) (Math.random() * 2)]);
-          } else {
-            move(directions[(int) (Math.random() * 2)], 0);
-          }
-        //}
+        if (Math.random() < 0.5) {
+          move(0, directions[(int) (Math.random() * 2)]);
+        } else {
+          move(directions[(int) (Math.random() * 2)], 0);
+        }
       }
     }
   }
@@ -242,32 +264,6 @@ public class Ghost extends Entity {
     arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
   }
 
-  //void timer() {
-  //  Timer timer = new Timer();
-  //  TimerTask task = new TimerTask() {
-
-  //    int counter = 8;
-
-  //    @Override
-  //      public void run() {
-  //      if (counter > 0 ) {
-  //        if (counter % 2 == 0) {
-  //          fill(100, 0, 255);
-  //          //println("dark");
-  //        } else {
-  //          fill(150, 150, 255);
-  //          //println("light");
-  //        }
-  //        counter--;
-  //      } else {
-  //        fill(clr);
-  //      }
-  //    }
-  //  };
-
-  //  timer.schedule(task, 0, 2 * 1000);
-  //}
-
   int[] otherTel(int r, int c) {
     int[] rn = {r, c};
     int index =0;
@@ -281,6 +277,10 @@ public class Ghost extends Entity {
   }
 
   void respawn() {
+    setMoveable(false);
+    ghostSpawnQ.add(this);
+    setSpawn();
+
     if (!PacMan.getState()) {
       gameBoard[getRow()][getCol()] = SPACE;
     }
@@ -296,5 +296,9 @@ public class Ghost extends Entity {
 
   int getVal() {
     return pointVal;
+  }
+
+  void setMoveable(boolean b) {
+    moveable = b;
   }
 }
