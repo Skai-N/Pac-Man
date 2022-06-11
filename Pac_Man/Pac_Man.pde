@@ -153,6 +153,9 @@ void run() {
       if (!ghostTimerOn) {
         Ghost g = ghostSpawnQ.remove(0);
         g.setMoveable(true);
+        for(Ghost ghost : ghosts) {
+         ghost.move(2); 
+        }
         respawnTimer();
         ghostTimerOn = true;
       }

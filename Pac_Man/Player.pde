@@ -34,11 +34,11 @@ public class Player extends Entity {
       setX(getX() + ((int) speed * dx));
       setY(getY() + ((int) speed * dy));
 
-      
+
       row += dy;
       col += dx;
       gameBoard[row - dy][col - dx] = on;
-      
+
       if (gameBoard[row][col] == TELEPORT) {
         int[] warp = otherTel(row, col);
 
@@ -68,18 +68,18 @@ public class Player extends Entity {
             }
           } else {
             points.addScore(200);
-          }
 
-          if (row == pinky.getRow() && col == pinky.getCol() ) ghostSpawnQ.add(pinky);
-          if (row == blinky.getRow() && col == blinky.getCol() ) ghostSpawnQ.add(blinky);
-          if (row == inky.getRow() && col == inky.getCol() ) ghostSpawnQ.add(inky);
-          if (row == clyde.getRow() && col == clyde.getCol() ) ghostSpawnQ.add(clyde);
+            if (row == pinky.getRow() && col == pinky.getCol() ) ghostSpawnQ.add(pinky);
+            if (row == blinky.getRow() && col == blinky.getCol() ) ghostSpawnQ.add(blinky);
+            if (row == inky.getRow() && col == inky.getCol() ) ghostSpawnQ.add(inky);
+            if (row == clyde.getRow() && col == clyde.getCol() ) ghostSpawnQ.add(clyde);
+          }
         }
 
         on = SPACE;
-      
 
-      gameBoard[row][col] = PLAYER;
+
+        gameBoard[row][col] = PLAYER;
       }
       display(dx, dy);
     }

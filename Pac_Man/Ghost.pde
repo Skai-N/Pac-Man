@@ -253,6 +253,43 @@ public class Ghost extends Entity {
           move(directions[(int) (Math.random() * 2)], 0);
         }
       }
+    } else if (mode == spawn) {
+      switch(getSpawnPosition()) {
+      case -1:
+      case 0:
+      case 3:
+        if (gameBoard[row - 1][col] != WALL && gameBoard[row - 1][col] != GHOST) {
+          setX(x + (speed * 0));
+          setY(y + (speed * -1));
+
+          row += -1;
+          col += 0;
+
+          gameBoard[row - -1][col - 0] = on;
+
+          on = gameBoard[row][col];
+          gameBoard[row][col] = GHOST;
+
+          break;
+        }
+
+      case 1:
+      case 2:
+        if (gameBoard[row][col - 1] != WALL && gameBoard[row][col - 1] != GHOST) {
+          setX(x + (speed * -1));
+          setY(y + (speed * 0));
+
+          row += 0;
+          col += -1;
+
+          gameBoard[row - 0][col - -1] = on;
+
+          on = gameBoard[row][col];
+          gameBoard[row][col] = GHOST;
+
+          break;
+        }
+      }
     }
   }
 
