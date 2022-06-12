@@ -42,6 +42,8 @@ ArrayList<int[]> teleports;
 boolean isStarted;
 PImage start;
 PImage end;
+PImage pink;PImage red;PImage blue;PImage orange;PImage weak;
+
 
 void setup() {
   size(720, 720);
@@ -67,10 +69,11 @@ void setup() {
   inky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
   clyde = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(235, 97, 35));
-  ghosts.add(pinky);
-  ghosts.add(blinky);
-  ghosts.add(clyde);
-  ghosts.add(inky);
+  ghosts.add(blinky);red = loadImage("blinky.png");red.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(pinky);pink = loadImage("pinky.png");pink.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(inky);blue = loadImage("inky.png");blue.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(clyde);orange = loadImage("1clyde.jpg");orange.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  weak = loadImage("weak.png");weak.resize((int)SQUARESIZE,(int)SQUARESIZE);
 
   loadGame();
 
