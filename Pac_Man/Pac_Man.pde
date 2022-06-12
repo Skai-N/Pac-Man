@@ -42,7 +42,11 @@ ArrayList<int[]> teleports;
 boolean isStarted;
 PImage start;
 PImage end;
-PImage pink;PImage red;PImage blue;PImage orange;PImage weak;
+PImage pink;
+PImage red;
+PImage blue;
+PImage orange;
+PImage weak;
 
 
 void setup() {
@@ -69,11 +73,20 @@ void setup() {
   inky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
   clyde = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(235, 97, 35));
-  ghosts.add(blinky);red = loadImage("blinky.png");red.resize((int)SQUARESIZE,(int)SQUARESIZE);
-  ghosts.add(pinky);pink = loadImage("pinky.png");pink.resize((int)SQUARESIZE,(int)SQUARESIZE);
-  ghosts.add(inky);blue = loadImage("inky.png");blue.resize((int)SQUARESIZE,(int)SQUARESIZE);
-  ghosts.add(clyde);orange = loadImage("1clyde.jpg");orange.resize((int)SQUARESIZE,(int)SQUARESIZE);
-  weak = loadImage("weak.png");weak.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(blinky);
+  red = loadImage("blinky.png");
+  red.resize((int)SQUARESIZE, (int)SQUARESIZE);
+  ghosts.add(pinky);
+  pink = loadImage("pinky.png");
+  pink.resize((int)SQUARESIZE, (int)SQUARESIZE);
+  ghosts.add(inky);
+  blue = loadImage("inky.png");
+  blue.resize((int)SQUARESIZE, (int)SQUARESIZE);
+  ghosts.add(clyde);
+  orange = loadImage("1clyde.jpg");
+  orange.resize((int)SQUARESIZE, (int)SQUARESIZE);
+  weak = loadImage("weak.png");
+  weak.resize((int)SQUARESIZE, (int)SQUARESIZE);
 
   loadGame();
 
@@ -177,6 +190,34 @@ void reset(int lives, int score) {
   noStroke();
 }
 
+void hardReset() {
+  dots = new ArrayList<Fruit>();
+  ghosts = new ArrayList<Ghost>();
+  bigdots = new ArrayList<Fruit>();
+  level = 1; 
+  gameSpeed = 10; 
+  score = 0;
+  gameBoard = readFile("level3.txt");
+
+  PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, 3);
+  PacMan.setScore(score);
+  pinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 53, 184));
+  inky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
+  blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
+  clyde = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(235, 97, 35));
+  ghosts.add(pinky);
+  ghosts.add(blinky);
+  ghosts.add(clyde);
+  ghosts.add(inky);
+
+  loadGame();
+  StringToSquares(gameBoard);
+  PacMan.display();
+
+  noStroke();
+}
+
+
 void startDisplay() {
   image(start, 0, 0);
 }
@@ -216,7 +257,14 @@ void keyPressed() {
     isStarted = true;
   }
   if (key == 'f') {
-    reset(3, 0);
+    hardReset();
+  }
+  if (key == 'k') {
+    PacMan.setLives(PacMan.getLives()-1);
+  }
+  if (key == 'q') {
+    for (int i = dots.size()-1; i >= 0; i--)dots.remove(i);
+    for (int i = bigdots.size()-1; i >= 0; i--)bigdots.remove(i);
   }
 }
 

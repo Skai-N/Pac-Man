@@ -53,3 +53,5 @@ Skai 6/4/22: Fixed TPs to make them work properly.
 Aahan 6/6/22: Added high score functions, set up a start and end page with keys.
 
 Aahan 6/11/22: Worked on how to make movement smooth without weird display.
+
+Aahan 6/12/22: ADded ghost icons and cheat codes.
