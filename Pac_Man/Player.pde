@@ -63,6 +63,52 @@ public class Player extends Entity {
         } else if (gameBoard[row][col] == GHOST) {
           if (!invincible) {
             die();
+            for (Ghost g : ghostSpawnQ) {
+              if (g == blinky) {
+                gameBoard[g.getRow()][g.getCol()] = SPACE;
+
+                g.setRow(ghostSpawn[0]);
+                g.setCol(ghostSpawn[1]);
+
+                g.setY(ghostSpawn[0] * (int) SQUARESIZE);
+                g.setX(ghostSpawn[1] * (int) SQUARESIZE);
+
+                g.display();
+              } else if (g == pinky) {
+                gameBoard[g.getRow()][g.getCol()] = SPACE;
+
+                g.setRow(q1[0]);
+                g.setCol(q1[1]);
+
+                g.setY(q1[0] * (int) SQUARESIZE);
+                g.setX(q1[1] * (int) SQUARESIZE);
+
+                g.display();
+              } else if (g == inky) {
+                gameBoard[g.getRow()][g.getCol()] = SPACE;
+
+                g.setRow(q2[0]);
+                g.setCol(q2[1]);
+
+                g.setY(q2[0] * (int) SQUARESIZE);
+                g.setX(q2[1] * (int) SQUARESIZE);
+
+                g.display();
+              } else if (g == clyde) {
+                gameBoard[g.getRow()][g.getCol()] = SPACE;
+
+                g.setRow(q3[0]);
+                g.setCol(q3[1]);
+
+                g.setY(q3[0] * (int) SQUARESIZE);
+                g.setX(q3[1] * (int) SQUARESIZE);
+
+                g.display();
+              }
+            }
+
+            ghostSpawnQ = new ArrayList<Ghost>(4);
+
             for (Ghost g : ghosts) {
               g.respawn();
             }

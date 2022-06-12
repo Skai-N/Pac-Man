@@ -380,7 +380,6 @@ void respawnTimer() {
   TimerTask task = new TimerTask() {
     @Override
       public void run() {
-      //ghostRespawnable = true;
       ghostTimerOn = false;
     }
   };
