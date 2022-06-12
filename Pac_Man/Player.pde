@@ -29,14 +29,23 @@ public class Player extends Entity {
     timerOn = false;
   }
 
+  void smooth(int dx, int dy) {
+    if (! (gameBoard[row + dy][col + dx] == WALL)) {
+      setX(getX() + ((speed * dx)/2));
+      setY(getY() + ((speed * dy)/2));
+
+      display(dx,dy);
+    }
+  }
+
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
     if (inBounds(row+dy, col+dx) && gameBoard[getRow() + dy][getCol() + dx] != WALL && gameBoard[getRow() + dy][getCol() + dx] != gameBoard[doorLocation[0]][doorLocation[1]]) {
-      setX(getX() + ((int) speed * dx));
-      setY(getY() + ((int) speed * dy));
-
+      setX(getX() + (speed * dx));
+      setY(getY() + (speed * dy));
 
       row += dy;
       col += dx;
+
       gameBoard[row - dy][col - dx] = on;
 
       if (gameBoard[row][col] == TELEPORT) {
@@ -54,7 +63,7 @@ public class Player extends Entity {
         if (gameBoard[row][col] == FRUIT) {
           points.addScore(dots.remove(dots.size() - 1).getVal());
         } else if (gameBoard[row][col] == BIGFRUIT) {
-          points.addScore(bigdots.remove(bigdots.size() - 1).getVal());
+          points.addScore(bigdots.remove(bigdots.size() -1).getVal());
           if (!timerOn) {
             setInvincible(true);
             invincibilityTimer();
@@ -63,70 +72,24 @@ public class Player extends Entity {
         } else if (gameBoard[row][col] == GHOST) {
           if (!invincible) {
             die();
-            for (Ghost g : ghostSpawnQ) {
-              if (g == blinky) {
-                gameBoard[g.getRow()][g.getCol()] = SPACE;
-
-                g.setRow(ghostSpawn[0]);
-                g.setCol(ghostSpawn[1]);
-
-                g.setY(ghostSpawn[0] * (int) SQUARESIZE);
-                g.setX(ghostSpawn[1] * (int) SQUARESIZE);
-
-                g.display();
-              } else if (g == pinky) {
-                gameBoard[g.getRow()][g.getCol()] = SPACE;
-
-                g.setRow(q1[0]);
-                g.setCol(q1[1]);
-
-                g.setY(q1[0] * (int) SQUARESIZE);
-                g.setX(q1[1] * (int) SQUARESIZE);
-
-                g.display();
-              } else if (g == inky) {
-                gameBoard[g.getRow()][g.getCol()] = SPACE;
-
-                g.setRow(q2[0]);
-                g.setCol(q2[1]);
-
-                g.setY(q2[0] * (int) SQUARESIZE);
-                g.setX(q2[1] * (int) SQUARESIZE);
-
-                g.display();
-              } else if (g == clyde) {
-                gameBoard[g.getRow()][g.getCol()] = SPACE;
-
-                g.setRow(q3[0]);
-                g.setCol(q3[1]);
-
-                g.setY(q3[0] * (int) SQUARESIZE);
-                g.setX(q3[1] * (int) SQUARESIZE);
-
-                g.display();
-              }
-            }
-
-            ghostSpawnQ = new ArrayList<Ghost>(4);
-
             for (Ghost g : ghosts) {
               g.respawn();
             }
           } else {
             points.addScore(200);
-
-            if (row == pinky.getRow() && col == pinky.getCol() ) ghostSpawnQ.add(pinky);
-            if (row == blinky.getRow() && col == blinky.getCol() ) ghostSpawnQ.add(blinky);
-            if (row == inky.getRow() && col == inky.getCol() ) ghostSpawnQ.add(inky);
-            if (row == clyde.getRow() && col == clyde.getCol() ) ghostSpawnQ.add(clyde);
           }
+
+          if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
+          if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
+          if (row == inky.getRow() && col == inky.getCol() )inky.respawn();
+          if (row == clyde.getRow() && col == clyde.getCol() )clyde.respawn();
         }
 
         on = SPACE;
-
-
-        gameBoard[row][col] = PLAYER;
       }
+
+      gameBoard[row][col] = PLAYER;
+
       display(dx, dy);
     }
   }

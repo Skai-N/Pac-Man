@@ -11,13 +11,7 @@ final int PLAYER = 4;
 final int DOOR = 7;
 final int TELEPORT = 8;
 int[] playerSpawn = new int[2];
-ArrayList<Ghost> ghostSpawnQ = new ArrayList<Ghost>(4);
-boolean ghostMoveable = false;
-boolean ghostTimerOn = false;
 int[] ghostSpawn = new int[2];
-int[] q1 = new int[2];
-int[] q2 = new int[2];
-int[] q3 = new int[2];
 int[] doorLocation = new int[2];
 
 int ROWS;
@@ -48,6 +42,8 @@ ArrayList<int[]> teleports;
 boolean isStarted;
 PImage start;
 PImage end;
+PImage pink;PImage red;PImage blue;PImage orange;PImage weak;
+
 
 void setup() {
   size(720, 720);
@@ -64,26 +60,20 @@ void setup() {
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
 
-  gameBoard = readFile("level4.txt");
+  gameBoard = readFile("level3.txt");
   start = loadImage("pacmenload.png");
   end = loadImage("endscreen.png");
 
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE);
-
+  pinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 53, 184));
+  inky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
-  pinky = new Ghost(q1[1] * (int) SQUARESIZE, q1[0] * (int) SQUARESIZE, color(255, 53, 184));
-  inky = new Ghost(q2[1] * (int) SQUARESIZE, q2[0] * (int) SQUARESIZE, color(0, 255, 255));
-  clyde = new Ghost(q3[1] * (int) SQUARESIZE, q3[0] * (int) SQUARESIZE, color(235, 97, 35));
-
-  ghosts.add(blinky);
-  ghosts.add(pinky);
-  ghosts.add(inky);
-  ghosts.add(clyde);
-
-  ghostSpawnQ.add(blinky);
-  ghostSpawnQ.add(pinky);
-  ghostSpawnQ.add(inky);
-  ghostSpawnQ.add(clyde);
+  clyde = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(235, 97, 35));
+  ghosts.add(blinky);red = loadImage("blinky.png");red.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(pinky);pink = loadImage("pinky.png");pink.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(inky);blue = loadImage("inky.png");blue.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(clyde);orange = loadImage("1clyde.jpg");orange.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  weak = loadImage("weak.png");weak.resize((int)SQUARESIZE,(int)SQUARESIZE);
 
   loadGame();
 
@@ -94,17 +84,7 @@ void draw() {
   background(0);
   noStroke();
 
-  //for (int i = 0; i < gameBoard.length; i++) {
-  //  for (int j = 0; j < gameBoard[i].length; j++) {
-  //    print(gameBoard[i][j] + " ");
-  //  }
-  //  println();
-  //}
-  //println();
-
   if (isStarted) {
-    //run();
-
     if (frameCount % gameSpeed == 0) {
       run();
     }
@@ -128,7 +108,6 @@ void draw() {
       fill(245, 191, 15);
       arc(32, 708, 15, 15, PI/6, 11 * PI/6);
     }
-    
     if (gameOver()) {
       scores.add(PacMan.getScore());
       endDisplay();
@@ -140,27 +119,13 @@ void draw() {
 
 void run() {
 
-  //for (int i = 0; i < gameBoard.length; i++) {
-  //  for (int j = 0; j < gameBoard[i].length; j++) {
+  //for(int i = 0; i < gameBoard.length; i++) {
+  //  for(int j = 0; j < gameBoard[i].length; j++) {
   //    print(gameBoard[i][j] + " ");
   //  }
   //  println();
   //}
   //println();
-
-  if (ghostMoveable) {
-    if (ghostSpawnQ.size() > 0) {
-      if (!ghostTimerOn) {
-        Ghost g = ghostSpawnQ.remove(0);
-        g.setMoveable(true);
-        for(Ghost ghost : ghosts) {
-         ghost.move(2); 
-        }
-        respawnTimer();
-        ghostTimerOn = true;
-      }
-    }
-  }
 
   if (PacMan.getMoveable()) {
     if (!levelDone() && !gameOver()) {
@@ -187,32 +152,22 @@ void advanceLevel() {
 }
 
 void reset(int lives, int score) {
-  ghostMoveable = false;
-  ghostTimerOn = false;
-
   dots = new ArrayList<Fruit>();
   ghosts = new ArrayList<Ghost>();
   bigdots = new ArrayList<Fruit>();
 
-  gameBoard = readFile("level4.txt");
+  gameBoard = readFile("level3.txt");
 
   PacMan = new Player(playerSpawn[1] * (int) SQUARESIZE, playerSpawn[0] * (int) SQUARESIZE, lives);
   PacMan.setScore(score);
-
+  pinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 53, 184));
+  inky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(0, 255, 255));
   blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
-  pinky = new Ghost(q1[1] * (int) SQUARESIZE, q1[0] * (int) SQUARESIZE, color(255, 53, 184));
-  inky = new Ghost(q2[1] * (int) SQUARESIZE, q2[0] * (int) SQUARESIZE, color(0, 255, 255));
-  clyde = new Ghost(q3[1] * (int) SQUARESIZE, q3[0] * (int) SQUARESIZE, color(235, 97, 35));
-
-  ghosts.add(blinky);
+  clyde = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(235, 97, 35));
   ghosts.add(pinky);
-  ghosts.add(inky);
+  ghosts.add(blinky);
   ghosts.add(clyde);
-
-  ghostSpawnQ.add(blinky);
-  ghostSpawnQ.add(pinky);
-  ghostSpawnQ.add(inky);
-  ghostSpawnQ.add(clyde);
+  ghosts.add(inky);
 
   loadGame();
   StringToSquares(gameBoard);
@@ -243,26 +198,18 @@ void keyPressed() {
   if (keyCode == UP || keyCode == 'w') {
     yDir = -1;
     xDir = 0;
-
-    ghostMoveable = true;
   }
   if (keyCode == DOWN || keyCode == 's') {
     yDir = 1;
     xDir = 0;
-
-    ghostMoveable = true;
   }
   if (keyCode == RIGHT || keyCode == 'd') {
     yDir = 0;
     xDir = 1;
-
-    ghostMoveable = true;
   }
   if (keyCode == LEFT || keyCode == 'a') {
     yDir = 0;
     xDir = -1;
-
-    ghostMoveable = true;
   }
   if (keyCode == ENTER) {
     isStarted = true;
@@ -327,22 +274,9 @@ int[][] readFile(String filename) {
         playerSpawn[0] = i;
         playerSpawn[1] = j;
       } else if (lines[i].charAt(j) == 'G') {
-        temp[i][j] = SPACE;
-        //temp[i][j] = GHOST;
+        temp[i][j] = GHOST;
         ghostSpawn[0] = i;
         ghostSpawn[1] = j;
-      } else if (lines[i].charAt(j) == '1') {
-        temp[i][j] = SPACE;
-        q1[0] = i;
-        q1[1] = j;
-      } else if (lines[i].charAt(j) == '2') {
-        temp[i][j] = SPACE;
-        q2[0] = i;
-        q2[1] = j;
-      } else if (lines[i].charAt(j) == '3') {
-        temp[i][j] = SPACE;
-        q3[0] = i;
-        q3[1] = j;
       } else if (lines[i].charAt(j) == ' ') {
         temp[i][j] = SPACE;
       } else if (lines[i].charAt(j) == 'D') {
@@ -374,34 +308,3 @@ int highScore() {
   }
   return max;
 }
-
-void respawnTimer() {
-  Timer timer = new Timer();
-  TimerTask task = new TimerTask() {
-    @Override
-      public void run() {
-      ghostTimerOn = false;
-    }
-  };
-
-  timer.schedule(task, 3 * 1000);
-}
-
-//void ghostReset() {
-//  ghostTimerOn = false;
-
-//  blinky = new Ghost(ghostSpawn[1] * (int) SQUARESIZE, ghostSpawn[0] * (int) SQUARESIZE, color(255, 50, 10));
-//  pinky = new Ghost(q1[1] * (int) SQUARESIZE, q1[0] * (int) SQUARESIZE, color(255, 53, 184));
-//  inky = new Ghost(q2[1] * (int) SQUARESIZE, q2[0] * (int) SQUARESIZE, color(0, 255, 255));
-//  clyde = new Ghost(q3[1] * (int) SQUARESIZE, q3[0] * (int) SQUARESIZE, color(235, 97, 35));
-
-//  ghosts.add(blinky);
-//  ghosts.add(pinky);
-//  ghosts.add(inky);
-//  ghosts.add(clyde);
-
-//  ghostSpawnQ.add(blinky);
-//  ghostSpawnQ.add(pinky);
-//  ghostSpawnQ.add(inky);
-//  ghostSpawnQ.add(clyde);
-//}
