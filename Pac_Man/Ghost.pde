@@ -20,7 +20,23 @@ public class Ghost extends Entity {
   }
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
-    if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST)) {
+    if (((getRow() == ghostSpawn[0] && getCol() == ghostSpawn[1]) || (getRow() == doorLocation[0] && getCol() == doorLocation[1])) && gameBoard[row - 1][col] != GHOST) {
+      setX(x + (speed * 0));
+      setY(y + (speed * -1));
+
+      row += -1;
+      col += 0;
+
+      //if(gameBoard[row - -1][col - 0] != GHOST && on != GHOST) {
+      gameBoard[row - -1][col - 0] = on; 
+
+      on = gameBoard[row][col];
+      //}
+
+      gameBoard[row][col] = GHOST;
+
+      display();
+    } else if (inBounds(row+dy, col+dx) && ! (gameBoard[row + dy][col + dx] == WALL) && ! (gameBoard[row + dy][col + dx] == GHOST) && gameBoard[row + dy][col + dx] != DOOR) {
       setX(x + (speed * dx));
       setY(y + (speed * dy));
 
@@ -42,10 +58,13 @@ public class Ghost extends Entity {
       }
 
       if (gameBoard[row][col] == PLAYER) {
-        respawn();
-
         if (!PacMan.getState()) {
           PacMan.die();
+          for (Ghost g : ghosts) {
+            g.respawn();
+          }
+        } else {
+          respawn();
         }
       }
 
@@ -233,7 +252,7 @@ public class Ghost extends Entity {
 
   void respawn() {
     if (!PacMan.getState()) {
-      gameBoard[getRow()][getCol()] = SPACE;
+      gameBoard[getRow()][getCol()] = on;
     }
 
     setX(ghostSpawn[1] * (int) SQUARESIZE);
