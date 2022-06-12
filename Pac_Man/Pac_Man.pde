@@ -104,7 +104,7 @@ void draw() {
   println();
 
   if (isStarted) {
-    //run();
+    run();
 
     //Timer timer = new Timer();
     //TimerTask task = new TimerTask() {
@@ -121,9 +121,9 @@ void draw() {
 
     //timer.schedule(task, 0, 3 * 1000);
 
-    if (frameCount % gameSpeed == 0) {
-      run();
-    }
+    //if (frameCount % gameSpeed == 0) {
+    //  run();
+    //}
 
     StringToSquares(gameBoard);
 
