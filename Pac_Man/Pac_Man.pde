@@ -196,19 +196,19 @@ boolean gameOver() {
 void keyPressed() {
   PacMan.setMoveable(true);
 
-  if (keyCode == UP || keyCode == 'w') {
+  if (keyCode == UP || key == 'w') {
     yDir = -1;
     xDir = 0;
   }
-  if (keyCode == DOWN || keyCode == 's') {
+  if (keyCode == DOWN || key == 's') {
     yDir = 1;
     xDir = 0;
   }
-  if (keyCode == RIGHT || keyCode == 'd') {
+  if (keyCode == RIGHT || key == 'd') {
     yDir = 0;
     xDir = 1;
   }
-  if (keyCode == LEFT || keyCode == 'a') {
+  if (keyCode == LEFT || key == 'a') {
     yDir = 0;
     xDir = -1;
   }
