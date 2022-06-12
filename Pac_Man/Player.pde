@@ -40,55 +40,56 @@ public class Player extends Entity {
 
   void move(int dx, int dy) { //based on the key pressed (direction), dx and dy will either be -1, 0, or 1
     if (inBounds(row+dy, col+dx) && gameBoard[getRow() + dy][getCol() + dx] != WALL && gameBoard[getRow() + dy][getCol() + dx] != gameBoard[doorLocation[0]][doorLocation[1]]) {
-        row += dy;
-        col += dx;
-        setX(getX() + (speed * dx));
-        setY(getY() + (speed * dy));
-        gameBoard[row - dy][col - dx] = on;
-        
-        if (gameBoard[row][col] == TELEPORT) {
-          int[] warp = otherTel(row, col);
-  
-          setRow(warp[0]);
-          setCol(warp[1]);
-  
-          setY(warp[0] * (int) SQUARESIZE);
-          setX(warp[1] * (int) SQUARESIZE);
-  
-          on = TELEPORT;
-        } else {
-  
-          if (gameBoard[row][col] == FRUIT) {
-            points.addScore(dots.remove(dots.size() - 1).getVal());
-          } else if (gameBoard[row][col] == BIGFRUIT) {
-            points.addScore(bigdots.remove(bigdots.size() -1).getVal());
-            if (!timerOn) {
-              setInvincible(true);
-              invincibilityTimer();
-              timerOn = true;
-            }
-          } else if (gameBoard[row][col] == GHOST) {
-            if (!invincible) {
-              die();
-              for (Ghost g : ghosts) {
-                g.respawn();
-              }
-            } else {
-              points.addScore(200);
-            }
-  
-            if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
-            if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
-            if (row == inky.getRow() && col == inky.getCol() )inky.respawn();
-            if (row == clyde.getRow() && col == clyde.getCol() )clyde.respawn();
+      setX(getX() + (speed * dx));
+      setY(getY() + (speed * dy));
+
+      row += dy;
+      col += dx;
+
+      gameBoard[row - dy][col - dx] = on;
+
+      if (gameBoard[row][col] == TELEPORT) {
+        int[] warp = otherTel(row, col);
+
+        setRow(warp[0]);
+        setCol(warp[1]);
+
+        setY(warp[0] * (int) SQUARESIZE);
+        setX(warp[1] * (int) SQUARESIZE);
+
+        on = TELEPORT;
+      } else {
+
+        if (gameBoard[row][col] == FRUIT) {
+          points.addScore(dots.remove(dots.size() - 1).getVal());
+        } else if (gameBoard[row][col] == BIGFRUIT) {
+          points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+          if (!timerOn) {
+            setInvincible(true);
+            invincibilityTimer();
+            timerOn = true;
           }
-  
-          on = SPACE;
-        
-  
-        gameBoard[row][col] = PLAYER;
+        } else if (gameBoard[row][col] == GHOST) {
+          if (!invincible) {
+            die();
+            for (Ghost g : ghosts) {
+              g.respawn();
+            }
+          } else {
+            points.addScore(200);
+          }
+
+          if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
+          if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
+          if (row == inky.getRow() && col == inky.getCol() )inky.respawn();
+          if (row == clyde.getRow() && col == clyde.getCol() )clyde.respawn();
         }
-      
+
+        on = SPACE;
+      }
+
+      gameBoard[row][col] = PLAYER;
+
       display(dx, dy);
     }
   }
