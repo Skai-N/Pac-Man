@@ -42,8 +42,8 @@ public class Player extends Entity {
     if (inBounds(row+dy, col+dx) && gameBoard[getRow() + dy][getCol() + dx] != WALL && gameBoard[getRow() + dy][getCol() + dx] != gameBoard[doorLocation[0]][doorLocation[1]]) {
         row += dy;
         col += dx;
-        setX(col*(int)SQUARESIZE);
-        setY(row*(int)SQUARESIZE);
+        setX(getX() + (int)SQUARESIZE  * dx);
+        setY(getY() + (int)SQUARESIZE * dy);
         gameBoard[row - dy][col - dx] = on;
         
         if (gameBoard[row][col] == TELEPORT) {
