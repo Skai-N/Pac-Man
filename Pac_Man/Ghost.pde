@@ -29,6 +29,18 @@ public class Ghost extends Entity {
 
       gameBoard[row - dy][col - dx] = on;
 
+      if (gameBoard[row][col] == TELEPORT) {
+        int[] warp = otherTel(row, col);
+
+        setRow(warp[0]);
+        setCol(warp[1]);
+
+        setY(warp[0] * (int) SQUARESIZE);
+        setX(warp[1] * (int) SQUARESIZE);
+
+        on = TELEPORT;
+      }
+
       if (gameBoard[row][col] == PLAYER) {
         respawn();
 

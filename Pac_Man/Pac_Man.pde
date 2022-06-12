@@ -35,7 +35,7 @@ int[][] gameBoard;
 
 int score = 0;
 int level = 1;
-int gameSpeed = 10;
+int gameSpeed = 5;
 
 ArrayList<int[]> teleports;
 
