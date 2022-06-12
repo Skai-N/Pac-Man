@@ -50,6 +50,7 @@ boolean isStarted;
 PImage start;
 PImage end;
 
+int ticks = 0;
 void setup() {
   size(720, 720);
   background(0);
@@ -104,6 +105,7 @@ void draw() {
   println();
 
   if (isStarted) {
+    ticks++;
     run();
 
     //Timer timer = new Timer();
