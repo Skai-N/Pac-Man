@@ -81,10 +81,10 @@ void setup() {
   inky = new Ghost(q2[1] * (int) SQUARESIZE, q2[0] * (int) SQUARESIZE, color(0, 255, 255));
   clyde = new Ghost(q3[1] * (int) SQUARESIZE, q3[0] * (int) SQUARESIZE, color(235, 97, 35));
 
-  ghosts.add(blinky);red = loadImage("blinky.jpg");red.resize((int)SQUARESIZE,(int)SQUARESIZE);
-  ghosts.add(pinky);pink = loadImage("pinky.jpg");pink.resize((int)SQUARESIZE,(int)SQUARESIZE);
-  ghosts.add(inky);blue = loadImage("inky.jpg");blue.resize((int)SQUARESIZE,(int)SQUARESIZE);
-  ghosts.add(clyde);orange = loadImage("clyde.png");orange.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(blinky);red = loadImage("blinky.png");red.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(pinky);pink = loadImage("pinky.png");pink.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(inky);blue = loadImage("inky.png");blue.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(clyde);orange = loadImage("1clyde.jpg");orange.resize((int)SQUARESIZE,(int)SQUARESIZE);
   weak = loadImage("weak.png");weak.resize((int)SQUARESIZE,(int)SQUARESIZE);
 
   ghostSpawnQ.add(blinky);
