@@ -6,6 +6,12 @@
 <p> Team members: Skai Nzeuton, Aahan Mehta </p>
 <p> Basic Pac-Man with features such as power ups and multiple map options. If we have time, we plan to implement the actual behaviors of the ghosts from the actual Pac-Man. Having accurate level advancement and scoring would also be another long term goal. Implementing the actual sound effects and multiple color themes would also be a nice touch. </p>
 
+INSTRUCTIONS FOR MR. K!
+You can hard reset by clicking 'f'
+You can take away one of pacmans lives by clicking 'k'
+You can skip a level by clicking 'q'
+-------------------------------------------------------------
+
 Aahan 5/23/22: Finished the readfile function that makes a map based on a file.
 
 Skai 5/23/22: Created Entity class and added instance variables and get methods.
