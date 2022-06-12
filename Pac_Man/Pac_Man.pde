@@ -50,6 +50,10 @@ boolean isStarted;
 PImage start;
 PImage end;
 
+PImage pink;PImage red;PImage blue;PImage orange;
+
+
+
 int ticks = 0;
 void setup() {
   size(720, 720);
@@ -77,10 +81,10 @@ void setup() {
   inky = new Ghost(q2[1] * (int) SQUARESIZE, q2[0] * (int) SQUARESIZE, color(0, 255, 255));
   clyde = new Ghost(q3[1] * (int) SQUARESIZE, q3[0] * (int) SQUARESIZE, color(235, 97, 35));
 
-  ghosts.add(blinky);
-  ghosts.add(pinky);
-  ghosts.add(inky);
-  ghosts.add(clyde);
+  ghosts.add(blinky);red = loadImage("blinky.jpg");red.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(pinky);pink = loadImage("pink.jpg");pink.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(inky);blue = loadImage("inky.jpg");blue.resize((int)SQUARESIZE,(int)SQUARESIZE);
+  ghosts.add(clyde);orange = loadImage("clyde.png");orange.resize((int)SQUARESIZE,(int)SQUARESIZE);
 
   ghostSpawnQ.add(blinky);
   ghostSpawnQ.add(pinky);
