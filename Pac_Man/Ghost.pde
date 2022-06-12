@@ -235,11 +235,17 @@ public class Ghost extends Entity {
   }
 
   void display() {
-    fill(clr);
+    
     if (PacMan.getState() == true) {
-      fill(100, 0, 255);
+      image(weak,getX(),getY());
+    }else{
+      if(clr == color(255, 50, 10)) image(red, getX(), getY());
+      if(clr == color(255, 53, 184)) image(pink, getX(), getY());
+      if(clr == color(0, 255, 255)) image(blue, getX(), getY());
+      if(clr == color(235, 97, 35)) image(orange, getX(), getY());
     }
-    arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
+    //arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
+    
   }
 
   //void timer() {
