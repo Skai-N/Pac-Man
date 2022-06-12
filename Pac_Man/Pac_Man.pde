@@ -104,7 +104,7 @@ void draw() {
   println();
 
   if (isStarted) {
-    run();
+    //run();
 
     //Timer timer = new Timer();
     //TimerTask task = new TimerTask() {
