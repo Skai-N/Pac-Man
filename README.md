@@ -52,4 +52,16 @@ Skai 6/4/22: Fixed TPs to make them work properly.
 
 Aahan 6/6/22: Added high score functions, set up a start and end page with keys.
 
+Skai 6/6/22: Made ghosts run away from PacMan when they are eatable and started formatting code for switch statements for future implementation.
+
+Skai 6/7/22: PacMan no longer can move onto the door and spawnkill ghosts, door is now black instead of orange, fixed energizer timers stacking, started working on ghost spawn queue.
+
+Skai 6/8/22: Rewrote ghost spawn queue.
+
+Skai 6/10/22: Debugged some ghost-PacMan interactions.
+
 Aahan 6/11/22: Worked on how to make movement smooth without weird display.
+
+Skai 6/11/22: Fixed game speed bug and added ghost queue + new map to test ghost queue.
+
+Skai 6/12/22: Simplified ghost queue, fixed ghost spawning issue when PacMan dies, fixed PacMan not being able to eat fruits that ghosts are on top of while PacMan is invincible.
