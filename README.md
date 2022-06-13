@@ -1,10 +1,31 @@
 # Pac-Man
 
+### Team info:
+
 <p> <a href="https://docs.google.com/document/d/1kgMOwK3Hvl9qedhFxxRxU04NU001gjAafCrqJr1HqKc/edit#">Documentation/Prototype</a> </p>
 
 <p> Team name: Team JV Basketball </p>
 <p> Team members: Skai Nzeuton, Aahan Mehta </p>
-<p> Basic Pac-Man with features such as power ups and multiple map options. If we have time, we plan to implement the actual behaviors of the ghosts from the actual Pac-Man. Having accurate level advancement and scoring would also be another long term goal. Implementing the actual sound effects and multiple color themes would also be a nice touch. </p>
+
+### Project description:
+
+<p> Retro-style Pac-Man with basic features, infinite level progression, and recorded high scores. All small white dots are 10 points, energizers are 50 points, and ghosts are 200 points. All fruits need to be eaten in order to advance to the next level. Each level, both the ghosts and the player move faster. The maximum speed is achieved after advancing to level 9. Both ghosts and players are able to use the teleports. PacMan has 3 lives, which are indicated in the bottom left corner of the screen. Lives displayed are inclusive of the current active life. Each time PacMan dies, all ghosts also return to the ghost spawn. </p>
+
+### Instructions:
+
+<p> Arrow keys are used to indicate which direction the player should move. Keys do not need to be held down because the player moves in the direction automatically. </p>
+
+<p> Press Enter to start the game. </p>
+
+##### Cheat codes:
+
+<p> Press "f" during a running game or after PacMan has died to hard reset the game (reset lives, points, fruits, ghosts, PacMan). </p>
+
+<p> Press "k" to decrement the number of lives that PacMan has. </p>
+
+<p> Press "q" to set the number of small white dots and energizers to 1. </p>
+
+### Dev log:
 
 Aahan 5/23/22: Finished the readfile function that makes a map based on a file.
 
@@ -63,5 +84,7 @@ Skai 6/10/22: Debugged some ghost-PacMan interactions.
 Aahan 6/11/22: Worked on how to make movement smooth without weird display.
 
 Skai 6/11/22: Fixed game speed bug and added ghost queue + new map to test ghost queue.
+
+Aahan 6/12/22: Added actual ghost displays.
 
 Skai 6/12/22: Simplified ghost queue, fixed ghost spawning issue when PacMan dies, fixed PacMan not being able to eat fruits that ghosts are on top of while PacMan is invincible.
