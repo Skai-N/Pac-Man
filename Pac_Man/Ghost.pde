@@ -239,4 +239,8 @@ public class Ghost extends Entity {
   int getVal() {
     return pointVal;
   }
+  
+  int getOn() {
+   return on; 
+  }
 }

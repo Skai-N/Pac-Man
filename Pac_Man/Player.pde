@@ -34,7 +34,7 @@ public class Player extends Entity {
       setX(getX() + ((speed * dx)/2));
       setY(getY() + ((speed * dy)/2));
 
-      display(dx,dy);
+      display(dx, dy);
     }
   }
 
@@ -77,12 +77,44 @@ public class Player extends Entity {
             }
           } else {
             points.addScore(200);
-          }
 
-          if (row == pinky.getRow() && col == pinky.getCol() )pinky.respawn();
-          if (row == blinky.getRow() && col == blinky.getCol() )blinky.respawn();
-          if (row == inky.getRow() && col == inky.getCol() )inky.respawn();
-          if (row == clyde.getRow() && col == clyde.getCol() )clyde.respawn();
+            if (row == pinky.getRow() && col == pinky.getCol() ) {
+              if (pinky.getOn() == FRUIT) {
+                points.addScore(dots.remove(dots.size() - 1).getVal());
+              } else if (pinky.getOn() == BIGFRUIT) {
+                points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+              }
+
+              pinky.respawn();
+            }
+            if (row == blinky.getRow() && col == blinky.getCol() ) {
+              if (blinky.getOn() == FRUIT) {
+                points.addScore(dots.remove(dots.size() - 1).getVal());
+              } else if (blinky.getOn() == BIGFRUIT) {
+                points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+              }
+
+              blinky.respawn();
+            }
+            if (row == inky.getRow() && col == inky.getCol() ) {
+              if (inky.getOn() == FRUIT) {
+                points.addScore(dots.remove(dots.size() - 1).getVal());
+              } else if (inky.getOn() == BIGFRUIT) {
+                points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+              }
+
+              inky.respawn();
+            }
+            if (row == clyde.getRow() && col == clyde.getCol() ) {
+              if (clyde.getOn() == FRUIT) {
+                points.addScore(dots.remove(dots.size() - 1).getVal());
+              } else if (clyde.getOn() == BIGFRUIT) {
+                points.addScore(bigdots.remove(bigdots.size() -1).getVal());
+              }
+
+              clyde.respawn();
+            }
+          }
         }
 
         on = SPACE;
