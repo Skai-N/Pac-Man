@@ -108,7 +108,6 @@ void draw() {
       fill(245, 191, 15);
       arc(32, 708, 15, 15, PI/6, 11 * PI/6);
     }
-    //text("Invincible: "+PacMan.getState(), 500, 10);
     if (gameOver()) {
       scores.add(PacMan.getScore());
       endDisplay();
@@ -119,15 +118,6 @@ void draw() {
 }
 
 void run() {
-
-  //for(int i = 0; i < gameBoard.length; i++) {
-  //  for(int j = 0; j < gameBoard[i].length; j++) {
-  //    print(gameBoard[i][j] + " ");
-  //  }
-  //  println();
-  //}
-  //println();
-
   if (PacMan.getMoveable()) {
     if (!levelDone() && !gameOver()) {
       PacMan.move(xDir, yDir);

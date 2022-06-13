@@ -1,6 +1,3 @@
-//import java.util.Timer;
-//import java.util.TimerTask;
-
 public class Ghost extends Entity {
   color clr;
   int on;
@@ -27,11 +24,9 @@ public class Ghost extends Entity {
       row += -1;
       col += 0;
 
-      //if(gameBoard[row - -1][col - 0] != GHOST && on != GHOST) {
       gameBoard[row - -1][col - 0] = on; 
 
       on = gameBoard[row][col];
-      //}
 
       gameBoard[row][col] = GHOST;
 
@@ -205,7 +200,6 @@ public class Ghost extends Entity {
   }
 
   void display() {
-    
     if (PacMan.getState() == true) {
       image(weak,getX(),getY());
     }else{
@@ -213,36 +207,8 @@ public class Ghost extends Entity {
       if(clr == color(255, 53, 184)) image(pink, getX(), getY());
       if(clr == color(0, 255, 255)) image(blue, getX(), getY());
       if(clr == color(235, 97, 35)) image(orange, getX(), getY());
-    }
-    //arc(getX() + SQUARESIZE/2, getY() + SQUARESIZE/2, SQUARESIZE, SQUARESIZE, 0, 2 * PI);
-    
+    }   
   }
-
-  //void timer() {
-  //  Timer timer = new Timer();
-  //  TimerTask task = new TimerTask() {
-
-  //    int counter = 8;
-
-  //    @Override
-  //      public void run() {
-  //      if (counter > 0 ) {
-  //        if (counter % 2 == 0) {
-  //          fill(100, 0, 255);
-  //          //println("dark");
-  //        } else {
-  //          fill(150, 150, 255);
-  //          //println("light");
-  //        }
-  //        counter--;
-  //      } else {
-  //        fill(clr);
-  //      }
-  //    }
-  //  };
-
-  //  timer.schedule(task, 0, 2 * 1000);
-  //}
 
   int[] otherTel(int r, int c) {
     int[] rn = {r, c};
@@ -272,5 +238,9 @@ public class Ghost extends Entity {
 
   int getVal() {
     return pointVal;
+  }
+  
+  int getOn() {
+   return on; 
   }
 }
